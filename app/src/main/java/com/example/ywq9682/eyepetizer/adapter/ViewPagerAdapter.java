@@ -11,6 +11,7 @@ import java.util.ArrayList;
  */
 public class ViewPagerAdapter extends FragmentPagerAdapter{
     private ArrayList<Fragment>fragments;
+    private String title[]={"精选","发现","作者","我的"};
 
     public void setFragments(ArrayList<Fragment> fragments) {
         this.fragments = fragments;
@@ -29,5 +30,10 @@ public class ViewPagerAdapter extends FragmentPagerAdapter{
     @Override
     public int getCount() {
         return fragments==null?0:fragments.size();
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return title[position];
     }
 }
