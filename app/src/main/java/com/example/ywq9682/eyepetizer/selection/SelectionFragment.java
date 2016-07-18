@@ -2,6 +2,7 @@ package com.example.ywq9682.eyepetizer.selection;
 
 import android.view.View;
 
+import com.example.ywq9682.eyepetizer.R;
 import com.example.ywq9682.eyepetizer.base.BaseFragment;
 
 /**
@@ -10,7 +11,7 @@ import com.example.ywq9682.eyepetizer.base.BaseFragment;
 public class SelectionFragment extends BaseFragment {
     @Override
     public int setLayout() {
-        return 0;
+        return R.layout.fragment_selector;
     }
 
     @Override

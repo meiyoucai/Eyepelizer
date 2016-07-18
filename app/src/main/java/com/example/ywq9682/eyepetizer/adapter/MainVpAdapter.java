@@ -10,21 +10,18 @@ import java.util.ArrayList;
 /**
  * Created by dllo on 16/7/16.
  */
-<<<<<<< HEAD
-public class ViewPagerAdapter extends FragmentPagerAdapter {
-    private ArrayList<Fragment> fragments;
-=======
-public class ViewPagerAdapter extends FragmentPagerAdapter{
+
+public class MainVpAdapter extends FragmentPagerAdapter{
     private ArrayList<Fragment>fragments;
     private String title[]={"精选","发现","作者","我的"};
->>>>>>> feature/ccz-推荐
+
 
     public void setFragments(ArrayList<Fragment> fragments) {
         this.fragments = fragments;
         notifyDataSetChanged();
     }
 
-    public ViewPagerAdapter(FragmentManager fm) {
+    public MainVpAdapter(FragmentManager fm) {
         super(fm);
     }
 
@@ -38,12 +35,10 @@ public class ViewPagerAdapter extends FragmentPagerAdapter{
         return fragments == null ? 0 : fragments.size();
     }
 
-<<<<<<< HEAD
 
-=======
+
     @Override
     public CharSequence getPageTitle(int position) {
         return title[position];
     }
->>>>>>> feature/ccz-推荐
 }
