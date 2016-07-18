@@ -19,6 +19,7 @@ public class MainActivity extends BaseActivity {
     private ViewPager viewPager;
     private TabLayout tabLayout;
 
+
     @Override
     public int setLayout() {
         return R.layout.activity_main;
@@ -36,7 +37,7 @@ public class MainActivity extends BaseActivity {
         OkHttpUtils.get().url(AllBean.DISCOVER).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-
+                
             }
 
             @Override
