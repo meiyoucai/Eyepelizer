@@ -16,7 +16,7 @@ public class AuthorFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
-
+        
     }
 
     @Override
