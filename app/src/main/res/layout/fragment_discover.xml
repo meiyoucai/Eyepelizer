@@ -3,4 +3,14 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+<<<<<<< HEAD
+=======
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/fragment_discover_recycler"
+        android:layout_height="match_parent"/>
+
+>>>>>>> 8e035dbd1a48554eef4f406a9f9cbb193f24ecbb
 </LinearLayout>

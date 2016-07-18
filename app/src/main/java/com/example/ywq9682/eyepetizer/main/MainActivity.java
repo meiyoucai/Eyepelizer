@@ -49,16 +49,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        OkHttpUtils.get().url(AllBean.DISCOVER_URL).build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                
-            }
 
-            @Override
-            public void onResponse(String response, int id) {
-                Log.d("www", response);
-            }
-        });
     }
 }
