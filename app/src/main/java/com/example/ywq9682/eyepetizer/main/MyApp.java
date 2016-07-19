@@ -23,6 +23,5 @@ public class MyApp extends Application {
                 .build();
 
         OkHttpUtils.initClient(okHttpClient);
-
     }
 }

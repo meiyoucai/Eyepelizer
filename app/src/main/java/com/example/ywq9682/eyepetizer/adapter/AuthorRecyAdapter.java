@@ -1,6 +1,7 @@
 package com.example.ywq9682.eyepetizer.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,8 +15,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.ywq9682.eyepetizer.R;
+import com.example.ywq9682.eyepetizer.allinterface.DataRecyInterface;
 import com.example.ywq9682.eyepetizer.bean.Author;
 import com.example.ywq9682.eyepetizer.bean.AuthorBean;
+import com.example.ywq9682.eyepetizer.video.VideoActivity;
 
 /**
  * Created by YWQ9682 on 2016/7/18.
@@ -65,7 +68,7 @@ public class AuthorRecyAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         int viewType = getItemViewType(position);
         switch (viewType) {
             case HEADER:
@@ -105,6 +108,15 @@ public class AuthorRecyAdapter extends RecyclerView.Adapter {
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
                 linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
                 videobriefViewHolder.recyclerView.setLayoutManager(linearLayoutManager);
+                authorDataRecyAdapter.setDataRecyInterface(new DataRecyInterface() {
+                    @Override
+                    public void DataRecyOnClick(int pos) {
+                        Intent intent = new Intent(context, VideoActivity.class);
+                        intent.putExtra("url", author.getItemList().get(position).getData()
+                                .getItemList().get(pos).getData().getPlayUrl());
+                        context.startActivity(intent);
+                    }
+                });
                 break;
             case BRANKCARD:
 
