@@ -1,12 +1,15 @@
 package com.example.ywq9682.eyepetizer.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.ywq9682.eyepetizer.R;
@@ -69,6 +72,7 @@ public class AuthorRecyAdapter extends RecyclerView.Adapter {
                 headerViewHolder.tvHeader.setText(author.getItemList().get(position).getData().getText());
                 break;
             case BRIEFCARD:
+
                 BRIEFCARDViewHolder briefcardViewHolder = (BRIEFCARDViewHolder) holder;
                 briefcardViewHolder.tvTitle.setText(author.getItemList()
                         .get(position).getData().getTitle());
@@ -79,14 +83,23 @@ public class AuthorRecyAdapter extends RecyclerView.Adapter {
 
                 break;
             case VIDEOBRIEF:
-//                VIDEOBRIEFViewHolder videobriefViewHolder = (VIDEOBRIEFViewHolder) holder;
-//                videobriefViewHolder.tvTitle.setText(author.getItemList().get(position)
-//                        .getData().getHeader().getTitle());
-//                videobriefViewHolder.tvSubTitle.setText(author.getItemList().get(position)
-//                        .getData().getHeader().getSubTitle());
-//                videobriefViewHolder.tvDescription.setText(author.getItemList().get(position)
-//                        .getData().getHeader().getDescription());
+                Log.d("ffdr", "position:" + position);
+                Log.d("ffdr", author.getItemList().get(position).getData().getHeader().getTitle());
+                VIDEOBRIEFViewHolder videobriefViewHolder = (VIDEOBRIEFViewHolder) holder;
+                videobriefViewHolder.tvTitle.setText(author.getItemList().get(position)
+                        .getData().getHeader().getTitle());
+                videobriefViewHolder.tvSubTitle.setText(author.getItemList().get(position)
+                        .getData().getHeader().getSubTitle());
+                videobriefViewHolder.tvDescription.setText(author.getItemList().get(position)
+                        .getData().getHeader().getDescription());
 
+                AuthorDataRecyAdapter authorDataRecyAdapter = new AuthorDataRecyAdapter(context);
+                authorDataRecyAdapter.setAuthorBean(author);
+                authorDataRecyAdapter.setPos(position);
+                videobriefViewHolder.recyclerView.setAdapter(authorDataRecyAdapter);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+                linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                videobriefViewHolder.recyclerView.setLayoutManager(linearLayoutManager);
                 break;
             case BRANKCARD:
 
@@ -151,7 +164,11 @@ public class AuthorRecyAdapter extends RecyclerView.Adapter {
 
         public VIDEOBRIEFViewHolder(View itemView) {
             super(itemView);
-
+            tvTitle = (TextView) itemView.findViewById(R.id.tv_item_author_recy_videobrief_title);
+            tvSubTitle = (TextView) itemView.findViewById(R.id.tv_item_author_recy_videobrief_subtitle);
+            tvDescription = (TextView) itemView.findViewById(R.id.tv_item_author_recy_videobrief_description);
+            ivIcon = (ImageView) itemView.findViewById(R.id.iv_author_recy_videobrief_icon);
+            recyclerView = (RecyclerView) itemView.findViewById(R.id.recy_author_recy_videobrief_data);
         }
     }
 
