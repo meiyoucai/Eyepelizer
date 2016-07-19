@@ -33,9 +33,13 @@ public class AuthorFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
+<<<<<<< HEAD
         authorRecyAdapter = new AuthorRecyAdapter(context);
         recyclerView = (RecyclerView) view.findViewById(R.id.recy_author);
         Log.d("wwww", "sss");
+=======
+        
+>>>>>>> ca02602cdaa0b305d88f2b1e5a914af67544c729
     }
 
     @Override
