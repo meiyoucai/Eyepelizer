@@ -24,11 +24,10 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.0.0'
     compile 'com.android.support:design:24.0.0'
-<<<<<<< HEAD
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.zhy:okhttputils:2.6.2'
-=======
 
->>>>>>> 8e035dbd1a48554eef4f406a9f9cbb193f24ecbb
+
+
 }
