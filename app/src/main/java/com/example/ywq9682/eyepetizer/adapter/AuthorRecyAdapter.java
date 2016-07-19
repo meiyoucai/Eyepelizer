@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.ywq9682.eyepetizer.R;
 import com.example.ywq9682.eyepetizer.bean.Author;
 import com.example.ywq9682.eyepetizer.bean.AuthorBean;
@@ -80,6 +81,8 @@ public class AuthorRecyAdapter extends RecyclerView.Adapter {
                         .get(position).getData().getSubTitle());
                 briefcardViewHolder.tvDescription.setText(author.getItemList()
                         .get(position).getData().getDescription());
+                Glide.with(context).load(author.getItemList().get(position)
+                        .getData().getIcon()).into(briefcardViewHolder.ivIcon);
 
                 break;
             case VIDEOBRIEF:
@@ -92,6 +95,8 @@ public class AuthorRecyAdapter extends RecyclerView.Adapter {
                         .getData().getHeader().getSubTitle());
                 videobriefViewHolder.tvDescription.setText(author.getItemList().get(position)
                         .getData().getHeader().getDescription());
+                Glide.with(context).load(author.getItemList().get(position)
+                        .getData().getHeader().getIcon()).into(videobriefViewHolder.ivIcon);
 
                 AuthorDataRecyAdapter authorDataRecyAdapter = new AuthorDataRecyAdapter(context);
                 authorDataRecyAdapter.setAuthorBean(author);

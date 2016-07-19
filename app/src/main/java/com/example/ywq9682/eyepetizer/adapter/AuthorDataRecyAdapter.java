@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.ywq9682.eyepetizer.R;
 import com.example.ywq9682.eyepetizer.bean.AuthorBean;
 
@@ -39,7 +40,6 @@ public class AuthorDataRecyAdapter extends RecyclerView.Adapter {
         DataViewHolder dataViewHolder = null;
         dataViewHolder = new DataViewHolder(LayoutInflater.
                 from(context).inflate(R.layout.item_author_recy_videobrief_recydata, parent, false));
-
         return dataViewHolder;
     }
 
@@ -50,6 +50,9 @@ public class AuthorDataRecyAdapter extends RecyclerView.Adapter {
                 getItemList().get(pos).getData().getItemList().get(position).getData().getTitle());
         dataViewHolder.tvCategory.setText(authorBean.
                 getItemList().get(pos).getData().getItemList().get(position).getData().getCategory());
+        Glide.with(context).load(authorBean.
+                getItemList().get(pos).getData().getItemList().get(position).getData().getCover().getFeed())
+                .into(dataViewHolder.ivCover);
     }
 
     @Override

@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:padding="10dp"
     android:layout_height="wrap_content">
 
     <ImageView
+        android:layout_marginLeft="10dp"
         android:id="@+id/iv_author_recy_videobrief_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
 
     <TextView
         android:id="@+id/tv_item_author_recy_videobrief_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/iv_author_recy_videobrief_icon"
 
         android:textColor="#000000"
@@ -35,6 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_item_author_recy_videobrief_title"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/iv_author_recy_videobrief_icon"
         android:ellipsize="end"
         android:maxLines="1"
@@ -50,10 +53,11 @@
         android:src="@mipmap/abc_ic_go_search_api_mtrl_alpha" />
 
     <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="10dp"
         android:id="@+id/recy_author_recy_videobrief_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_author_recy_briefcard_icon" />
+        android:layout_below="@+id/iv_author_recy_videobrief_icon" />
 
 
 </RelativeLayout>
