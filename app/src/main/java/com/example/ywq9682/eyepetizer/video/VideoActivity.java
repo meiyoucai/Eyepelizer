@@ -20,7 +20,10 @@ public class VideoActivity extends BaseActivity {
     public void initView() {
         Intent intent = getIntent();
         String url = intent.getStringExtra("url");
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8f79be0b7c57910db17a67ad224472d57d01d937
 
     }
 
@@ -29,9 +32,13 @@ public class VideoActivity extends BaseActivity {
 
     }
 
+<<<<<<< HEAD
     @Override
     protected void onPause() {
         super.onPause();
 
     }
+=======
+
+>>>>>>> 8f79be0b7c57910db17a67ad224472d57d01d937
 }
