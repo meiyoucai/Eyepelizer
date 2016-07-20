@@ -23,8 +23,6 @@ public class DiscoverFragment extends BaseFragment {
     private RecyclerView recyclerView;
     private DiscoverAdapter discoverAdapter;
     private DiscoverBean discoverBean;
-
-
     @Override
     public int setLayout() {
         return R.layout.fragment_discover;
@@ -33,20 +31,16 @@ public class DiscoverFragment extends BaseFragment {
     @Override
     public void initView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_discover_recycler);
-
     }
     @Override
     protected void initData() {
         discoverAdapter = new DiscoverAdapter(context);
         discoverBean= new DiscoverBean();
-
-
         String url = AllBean.DISCOVER_URL;
         OkHttpUtils.get().url(url).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
             }
-
             @Override
             public void onResponse(String response, int id) {
                 Gson gson = new Gson();
@@ -56,9 +50,7 @@ public class DiscoverFragment extends BaseFragment {
                 recyclerView.setAdapter(discoverAdapter);
                 GridLayoutManager gridLayoutManager =new GridLayoutManager(context,2);
                 recyclerView.setLayoutManager(gridLayoutManager);
-
             }
         });
-
     }
 }
