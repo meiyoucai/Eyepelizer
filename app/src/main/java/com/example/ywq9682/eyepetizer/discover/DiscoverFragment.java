@@ -39,8 +39,6 @@ public class DiscoverFragment extends BaseFragment {
     protected void initData() {
         discoverAdapter = new DiscoverAdapter(context);
         discoverBean= new DiscoverBean();
-
-
         String url = AllBean.DISCOVER_URL;
         OkHttpUtils.get().url(url).build().execute(new StringCallback() {
             @Override
