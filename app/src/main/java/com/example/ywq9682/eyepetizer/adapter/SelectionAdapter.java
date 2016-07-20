@@ -56,9 +56,9 @@ public class SelectionAdapter extends BaseAdapter{
                 }
             }
         }
-        int startTime = 90;
-        String time = new SimpleDateFormat("mm:ss").format(1200);
-        Log.d("SelectionAdapter", time);
+//        int startTime = 90;
+//        String time = new SimpleDateFormat("mm:ss").format(1200);
+//        Log.d("SelectionAdapter", time);
 
     }
 
