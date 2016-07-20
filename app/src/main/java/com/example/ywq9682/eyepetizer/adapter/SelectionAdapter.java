@@ -130,8 +130,8 @@ public class SelectionAdapter extends BaseAdapter{
                 break;
             case TYPE_HEADER:
                 headerViewHolder.headerText.setText(selectionListBeen.get(position).getText());
-                Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/lobster.ttf");
-                headerViewHolder.headerText.setTypeface(typeface);
+//                Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/lobster.ttf");
+//                headerViewHolder.headerText.setTypeface(typeface);
                 break;
         }
 
