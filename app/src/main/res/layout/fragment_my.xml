@@ -3,37 +3,74 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@mipmap/abc_ic_ab_back_holo_light" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="标题"
+            android:textSize="20dp" />
+
+        <ImageView
+            android:id="@+id/map"
+            android:layout_width="wrap_content"
+            android:src="@mipmap/abc_ic_ab_back_holo_light"
+            android:layout_margin="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content" />
+
+
+    </RelativeLayout>
+
     <ImageView
         android:id="@+id/head_image"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:src="@mipmap/ig_profile_photo_default" />
 
+    <ImageView
+        android:id="@+id/head_image_true"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="50dp"
+        android:src="@mipmap/me_avatar_boy"
+        android:visibility="gone" />
+
     <EditText
+        android:id="@+id/herad_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/head_image"
-        android:id="@+id/herad_name"
-        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:background="@null"
         android:hint="qzuser" />
 
     <LinearLayout
-        android:layout_below="@id/herad_name"
-        android:layout_width="match_parent"
-        android:weightSum="2"
         android:id="@+id/my_message_and_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/herad_name"
         android:layout_marginTop="20dp"
-        android:layout_height="wrap_content">
+        android:weightSum="2">
 
 
         <LinearLayout
-            android:layout_weight="1"
-            android:gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -48,10 +85,10 @@
 
 
         <LinearLayout
-            android:layout_weight="1"
-            android:gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -67,25 +104,41 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000" />
+
+
     <TextView
+        android:id="@+id/my_cache"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:id="@+id/my_cache"
+        android:layout_below="@id/my_message_and_search"
         android:layout_marginTop="70dp"
         android:gravity="center"
-        android:layout_below="@id/my_message_and_search"
-        android:text="我的缓存"/>
+        android:text="我的缓存"
+        android:textSize="20sp" />
+
+
+    <TextView
+        android:id="@+id/my_pay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/my_cache"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:text="支付功能"
+        android:textSize="20sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:layout_marginTop="80dp"
+        android:layout_below="@id/my_pay"
+        android:layout_marginTop="50dp"
         android:gravity="center"
-        android:layout_below="@id/my_cache"
-        android:text="退出登录"/>
-
+        android:text="退出登录"
+        android:textSize="20sp" />
 
 
 </RelativeLayout>
