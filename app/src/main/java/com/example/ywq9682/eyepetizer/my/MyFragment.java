@@ -1,5 +1,6 @@
 package com.example.ywq9682.eyepetizer.my;
 
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import com.example.ywq9682.eyepetizer.base.BaseFragment;
 public class MyFragment extends BaseFragment implements View.OnClickListener {
     private ImageView headImage;
     private PopupWindow popupWindow;
+    private  ImageView  mMap;
 
 
     @Override
@@ -31,7 +33,9 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
 
         popupWindow = new PopupWindow();
         headImage = (ImageView) view.findViewById(R.id.head_image);
+        mMap= (ImageView) view.findViewById(R.id.map);
         headImage.setOnClickListener(this);
+        mMap.setOnClickListener(this);
     }
 
     @Override
@@ -43,7 +47,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_image:
-
+                Intent intent = new Intent(context, LoginActivity.class);
+                context.startActivity(intent);
 
                 if (popupWindow != null || !popupWindow.isShowing()) {
                     popupWindow = new PopupWindow(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -63,24 +68,20 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                     popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                         @Override
                         public void onDismiss() {
-
                             WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
                             lp.alpha = 1f;
                             getActivity().getWindow().setAttributes(lp);
-
-
                         }
                     });
-
-
                 }
+                break;
+            case R.id.map:
+
 
 
                 break;
 
 
         }
-
-
     }
 }
