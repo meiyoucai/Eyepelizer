@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.ywq9682.eyepetizer.R;
@@ -21,7 +23,7 @@ import java.util.ArrayList;
 /**
  * Created by dllo on 16/7/20.
  */
-public class SelectionAdapter extends BaseAdapter{
+public class SelectionAdapter extends BaseAdapter {
     private SelectionBean selectionBean;
     private ArrayList<SelectionListBean> selectionListBeen;
     private Context context;
@@ -34,8 +36,18 @@ public class SelectionAdapter extends BaseAdapter{
         this.context = context;
     }
 
+    public void addSelectionBean(SelectionBean selectionBean) {
+        this.selectionBean.getIssueList().addAll(selectionBean.getIssueList());
+        buildBean();
+    }
+
     public void setSelectionBean(SelectionBean selectionBean) {
         this.selectionBean = selectionBean;
+        buildBean();
+
+    }
+
+    public void buildBean() {
         selectionListBeen = new ArrayList<>();
         for (int i = 0; i < selectionBean.getIssueList().size(); i++) {
             for (int j = 0; j < selectionBean.getIssueList().get(i).getItemList().size(); j++) {
@@ -56,9 +68,13 @@ public class SelectionAdapter extends BaseAdapter{
                 }
             }
         }
+
 //        int startTime = 90;
 //        String time = new SimpleDateFormat("mm:ss").format(1200);
 //        Log.d("SelectionAdapter", time);
+
+
+        notifyDataSetChanged();
 
     }
 
@@ -93,7 +109,7 @@ public class SelectionAdapter extends BaseAdapter{
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         VideoViewHolder videoViewHolder = null;
         HeaderViewHolder headerViewHolder = null;
         int type = getItemViewType(position);
@@ -127,6 +143,12 @@ public class SelectionAdapter extends BaseAdapter{
                 int times = selectionListBeen.get(position).getDuration();
                 videoViewHolder.timeTv.setText(times / 600 + "" + times % 600 / 60 + "'" + times % 60 / 10 + "" + times % 60 % 10 + "''");
                 Glide.with(context).load(selectionListBeen.get(position).getImageUrl()).into(videoViewHolder.imageView);
+                videoViewHolder.videoLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(context, selectionListBeen.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
             case TYPE_HEADER:
                 headerViewHolder.headerText.setText(selectionListBeen.get(position).getText());
@@ -141,12 +163,14 @@ public class SelectionAdapter extends BaseAdapter{
     class VideoViewHolder {
         private TextView titleTv, categoryTv, timeTv;
         private ImageView imageView;
+        private RelativeLayout videoLayout;
 
         public VideoViewHolder(View view) {
             titleTv = (TextView) view.findViewById(R.id.video_title);
             categoryTv = (TextView) view.findViewById(R.id.video_category);
             imageView = (ImageView) view.findViewById(R.id.video_icon);
             timeTv = (TextView) view.findViewById(R.id.video_time);
+            videoLayout = (RelativeLayout) view.findViewById(R.id.video_layout);
         }
     }
 
