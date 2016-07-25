@@ -1,4 +1,4 @@
-package com.example.ywq9682.eyepetizer;
+package com.example.ywq9682.eyepetizer.welcome;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +8,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.example.ywq9682.eyepetizer.R;
 import com.example.ywq9682.eyepetizer.main.MainActivity;
 
 /**
