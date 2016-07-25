@@ -37,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginTop="50dp"
+
         android:src="@mipmap/ig_profile_photo_default" />
 
     <ImageView
@@ -44,16 +45,18 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginTop="50dp"
+        android:visibility="gone"
         android:src="@mipmap/me_avatar_boy"
-        android:visibility="gone" />
+         />
 
     <EditText
         android:id="@+id/herad_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/head_image"
+
+
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="140dp"
         android:background="@null"
         android:hint="qzuser" />
 
@@ -137,6 +140,7 @@
         android:layout_below="@id/my_pay"
         android:layout_marginTop="50dp"
         android:gravity="center"
+        android:id="@+id/return_login"
         android:text="退出登录"
         android:textSize="20sp" />
 

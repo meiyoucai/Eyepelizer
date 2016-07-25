@@ -4,19 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.ywq9682.eyepetizer.R;
 import com.example.ywq9682.eyepetizer.allinterface.DataRecyInterface;
-import com.example.ywq9682.eyepetizer.bean.Author;
+import com.example.ywq9682.eyepetizer.author.authordetial.AuthorDetial;
 import com.example.ywq9682.eyepetizer.bean.AuthorBean;
 import com.example.ywq9682.eyepetizer.video.VideoActivity;
 
@@ -40,7 +38,6 @@ public class AuthorRecyAdapter extends RecyclerView.Adapter {
         this.author = author;
         notifyDataSetChanged();
     }
-
 
 
     @Override
@@ -80,17 +77,30 @@ public class AuthorRecyAdapter extends RecyclerView.Adapter {
                 BRIEFCARDViewHolder briefcardViewHolder = (BRIEFCARDViewHolder) holder;
                 briefcardViewHolder.tvTitle.setText(author.getItemList()
                         .get(position).getData().getTitle());
+
+                briefcardViewHolder.tvTitle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Intent intent = new Intent(context, AuthorDetial.class);
+                        context.startActivity(intent);
+
+
+                    }
+                });
                 briefcardViewHolder.tvSubTitle.setText(author.getItemList()
                         .get(position).getData().getSubTitle());
                 briefcardViewHolder.tvDescription.setText(author.getItemList()
                         .get(position).getData().getDescription());
+
                 Glide.with(context).load(author.getItemList().get(position)
                         .getData().getIcon()).into(briefcardViewHolder.ivIcon);
 
+
                 break;
             case VIDEOBRIEF:
-                Log.d("ffdr", "position:" + position);
-                Log.d("ffdr", author.getItemList().get(position).getData().getHeader().getTitle());
+                // Log.d("ffdr", "position:" + position);
+                // Log.d("ffdr", author.getItemList().get(position).getData().getHeader().getTitle());
                 VIDEOBRIEFViewHolder videobriefViewHolder = (VIDEOBRIEFViewHolder) holder;
                 videobriefViewHolder.tvTitle.setText(author.getItemList().get(position)
                         .getData().getHeader().getTitle());
@@ -147,7 +157,6 @@ public class AuthorRecyAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return author.getCount();
     }
-
 
 
     //type为0

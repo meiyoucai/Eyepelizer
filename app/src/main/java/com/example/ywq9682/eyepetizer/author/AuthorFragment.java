@@ -10,7 +10,6 @@ import com.example.ywq9682.eyepetizer.R;
 import com.example.ywq9682.eyepetizer.adapter.AuthorRecyAdapter;
 import com.example.ywq9682.eyepetizer.base.BaseFragment;
 import com.example.ywq9682.eyepetizer.bean.AllBean;
-import com.example.ywq9682.eyepetizer.bean.Author;
 import com.example.ywq9682.eyepetizer.bean.AuthorBean;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -33,12 +32,9 @@ public class AuthorFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
-
         authorRecyAdapter = new AuthorRecyAdapter(context);
         recyclerView = (RecyclerView) view.findViewById(R.id.recy_author);
         Log.d("wwww", "sss");
-
-
     }
 
     @Override
@@ -52,7 +48,6 @@ public class AuthorFragment extends BaseFragment {
             public void onError(Call call, Exception e, int id) {
                 Toast.makeText(context, "获取网络数据失败", Toast.LENGTH_SHORT).show();
             }
-
             @Override
             public void onResponse(String response, int id) {
                 Log.d("wwww", response);
