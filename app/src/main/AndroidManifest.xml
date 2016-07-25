@@ -24,7 +24,7 @@
         </activity>
         <activity android:name=".video.VideoActivity" />
         <activity android:name=".my.LoginActivity" />
-        <activity android:name=".author.authordetial.AuthorDetial" />
+      <activity android:name=".author.authordetial.AuthorDetial"/>
     </application>
 
 </manifest>

@@ -16,6 +16,7 @@
         android:layout_centerInParent="true">
 
         <TextView
+            android:text="asd"
             android:id="@+id/author_time_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,6 +36,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:text="asdsadsd"
                 android:id="@+id/author_time_record"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,6 +45,7 @@
                 android:textSize="12sp" />
 
             <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -52,6 +55,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:text="sadsd"
                 android:id="@+id/author_time_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,8 +65,11 @@
         </LinearLayout>
 
         <TextView
+            android:text="asdsad"
             android:id="@+id/author_time_title"
             android:layout_width="wrap_content"
+            android:textColor="#ffffff"
+            android:layout_centerHorizontal="true"
             android:layout_height="wrap_content"
             android:layout_below="@id/asd" />
     </RelativeLayout>
