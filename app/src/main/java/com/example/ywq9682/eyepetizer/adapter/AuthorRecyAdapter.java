@@ -10,15 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.ywq9682.eyepetizer.R;
 import com.example.ywq9682.eyepetizer.allinterface.DataRecyInterface;
-import com.example.ywq9682.eyepetizer.bean.Author;
 import com.example.ywq9682.eyepetizer.bean.AuthorBean;
-import com.example.ywq9682.eyepetizer.video.VideoActivity;
+import com.example.ywq9682.eyepetizer.video.VideoPlayer;
 
 /**
  * Created by YWQ9682 on 2016/7/18.
@@ -111,7 +109,7 @@ public class AuthorRecyAdapter extends RecyclerView.Adapter {
                 authorDataRecyAdapter.setDataRecyInterface(new DataRecyInterface() {
                     @Override
                     public void DataRecyOnClick(int pos) {
-                        Intent intent = new Intent(context, VideoActivity.class);
+                        Intent intent = new Intent(context, VideoPlayer.class);
                         intent.putExtra("url", author.getItemList().get(position).getData()
                                 .getItemList().get(pos).getData().getPlayUrl());
                         context.startActivity(intent);

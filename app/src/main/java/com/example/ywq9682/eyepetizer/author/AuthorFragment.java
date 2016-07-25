@@ -33,12 +33,9 @@ public class AuthorFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
-
         authorRecyAdapter = new AuthorRecyAdapter(context);
         recyclerView = (RecyclerView) view.findViewById(R.id.recy_author);
         Log.d("wwww", "sss");
-
-
     }
 
     @Override
@@ -52,7 +49,6 @@ public class AuthorFragment extends BaseFragment {
             public void onError(Call call, Exception e, int id) {
                 Toast.makeText(context, "获取网络数据失败", Toast.LENGTH_SHORT).show();
             }
-
             @Override
             public void onResponse(String response, int id) {
                 Log.d("wwww", response);

@@ -19,7 +19,6 @@ import com.example.ywq9682.eyepetizer.bean.DiscoverBean;
  */
 public class DiscoverAdapter extends RecyclerView.Adapter {
     private DiscoverBean discoverBean;
-    private static final String horizontalScrollCard = "horizontalScrollCard";
 
 
     private Context context;
@@ -50,8 +49,6 @@ public class DiscoverAdapter extends RecyclerView.Adapter {
         squareCard.title.setText(discoverBean.getItemList().get(position).getData().getTitle());
         Log.d("DiscoverAdapter", "kasdklajdklassssss");
         Glide.with(context).load(discoverBean.getItemList().get(position).getData().getImage()).into(squareCard.imageView);
-
-
     }
 
     @Override

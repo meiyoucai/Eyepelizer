@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':wqkvideoplayer'
 include ':library'
