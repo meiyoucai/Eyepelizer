@@ -3,30 +3,51 @@ package com.example.ywq9682.eyepetizer.welcome;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.example.ywq9682.eyepetizer.R;
+import com.example.ywq9682.eyepetizer.base.BaseActivity;
 import com.example.ywq9682.eyepetizer.main.MainActivity;
 
 /**
  * Created by dllo on 16/7/20.
  */
-public class WelcomeActivity extends Activity implements Animation.AnimationListener {
+public class WelcomeActivity extends BaseActivity implements Animation.AnimationListener {
 
 
     private ImageView imageView = null;
     private Animation alphaAnimation = null;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_welcome);
+//        imageView = (ImageView) findViewById(R.id.welcome_image_view);
+//        alphaAnimation = AnimationUtils.loadAnimation(this, R.anim.alpko);
+//        alphaAnimation.setFillEnabled(true); //启动Fill保持
+//        alphaAnimation.setFillAfter(true);  //设置动画的最后一帧是保持在View上面
+//        imageView.setAnimation(alphaAnimation);
+//        alphaAnimation.setAnimationListener(this);  //为动画设置监听
+//    }
+
+    @Override
+    public int setLayout() {
+        return R.layout.activity_welcome;
+    }
+
+    @Override
+    public void initView() {
         imageView = (ImageView) findViewById(R.id.welcome_image_view);
         alphaAnimation = AnimationUtils.loadAnimation(this, R.anim.alpko);
+    }
+
+    @Override
+    public void initData() {
         alphaAnimation.setFillEnabled(true); //启动Fill保持
         alphaAnimation.setFillAfter(true);  //设置动画的最后一帧是保持在View上面
         imageView.setAnimation(alphaAnimation);
