@@ -18,9 +18,12 @@ android {
         }
     }
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
-
-
+    sourceSets {
+        main.jniLibs.srcDirs = ['libs']
+    }
 }
+
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
@@ -30,6 +33,16 @@ dependencies {
     compile 'com.zhy:okhttputils:2.6.2'
     compile 'com.github.bumptech.glide:glide:3.5.2'
     compile 'com.android.support:support-v4:22.0.0'
+<<<<<<< HEAD
     compile project(':library')
     compile project(':wqkvideoplayer')
+=======
+    compile files('libs/Bmob_Push_V0.9beta_20160520.jar')
+    compile files('libs/BmobSDK_V3.4.7_0527.jar')
+    compile 'info.hoang8f:fbutton:1.0.5'
+    compile files('libs/lite-orm-1.9.1.jar')
+    compile files('libs/lite-orm-1.9.1.jar')
+    compile 'cn.carbs.android:AvatarImageView:1.0.2'
+    compile 'com.squareup.picasso:picasso:2.3.2'
+>>>>>>> e283b71349e283af1900c55cd321552404596f35
 }

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.ywq9682.eyepetizer.R;
+import com.example.ywq9682.eyepetizer.allinterface.BriefOnClickListener;
 import com.example.ywq9682.eyepetizer.allinterface.DataRecyInterface;
 import com.example.ywq9682.eyepetizer.bean.AuthorBean;
 import com.example.ywq9682.eyepetizer.video.VideoPlayer;
@@ -29,6 +29,7 @@ public class AuthorRecyAdapter extends RecyclerView.Adapter {
     private static final int BRIEFCARD = 1;
     private static final int VIDEOBRIEF = 2;
     private static final int BRANKCARD = 3;
+    private BriefOnClickListener briefOnClickListener;
 
     public AuthorRecyAdapter(Context context) {
         this.context = context;
@@ -39,7 +40,9 @@ public class AuthorRecyAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
-
+    public void setBriefOnClickListener(BriefOnClickListener briefOnClickListener) {
+        this.briefOnClickListener = briefOnClickListener;
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -75,20 +78,30 @@ public class AuthorRecyAdapter extends RecyclerView.Adapter {
                 break;
             case BRIEFCARD:
 
-                BRIEFCARDViewHolder briefcardViewHolder = (BRIEFCARDViewHolder) holder;
+                final BRIEFCARDViewHolder briefcardViewHolder = (BRIEFCARDViewHolder) holder;
                 briefcardViewHolder.tvTitle.setText(author.getItemList()
                         .get(position).getData().getTitle());
                 briefcardViewHolder.tvSubTitle.setText(author.getItemList()
                         .get(position).getData().getSubTitle());
                 briefcardViewHolder.tvDescription.setText(author.getItemList()
                         .get(position).getData().getDescription());
+
                 Glide.with(context).load(author.getItemList().get(position)
                         .getData().getIcon()).into(briefcardViewHolder.ivIcon);
+                briefcardViewHolder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        int position = briefcardViewHolder.getLayoutPosition();
+                        briefOnClickListener.onClick(position);
+
+                    }
+                });
 
                 break;
             case VIDEOBRIEF:
-                Log.d("ffdr", "position:" + position);
-                Log.d("ffdr", author.getItemList().get(position).getData().getHeader().getTitle());
+                // Log.d("ffdr", "position:" + position);
+                // Log.d("ffdr", author.getItemList().get(position).getData().getHeader().getTitle());
                 VIDEOBRIEFViewHolder videobriefViewHolder = (VIDEOBRIEFViewHolder) holder;
                 videobriefViewHolder.tvTitle.setText(author.getItemList().get(position)
                         .getData().getHeader().getTitle());
@@ -147,7 +160,6 @@ public class AuthorRecyAdapter extends RecyclerView.Adapter {
     }
 
 
-
     //type为0
     class HEADERViewHolder extends RecyclerView.ViewHolder {
         TextView tvHeader;
@@ -161,6 +173,7 @@ public class AuthorRecyAdapter extends RecyclerView.Adapter {
     class BRIEFCARDViewHolder extends RecyclerView.ViewHolder {
         ImageView ivIcon;
         TextView tvTitle, tvSubTitle, tvDescription;
+        RelativeLayout relativeLayout;
 
         public BRIEFCARDViewHolder(View itemView) {
             super(itemView);
@@ -168,6 +181,7 @@ public class AuthorRecyAdapter extends RecyclerView.Adapter {
             tvTitle = (TextView) itemView.findViewById(R.id.tv_item_author_recy_briefcard_title);
             tvSubTitle = (TextView) itemView.findViewById(R.id.tv_item_author_recy_briefcard_subtitle);
             tvDescription = (TextView) itemView.findViewById(R.id.tv_item_author_recy_briefcard_description);
+            relativeLayout = (RelativeLayout) itemView.findViewById(R.id.briefcard_relative);
         }
     }
 

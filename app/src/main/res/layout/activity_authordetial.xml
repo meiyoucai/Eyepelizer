@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.example.ywq9682.eyepetizer.author.authordetial.MyScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/headLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <cn.carbs.android.avatarimageview.library.AvatarImageView
+                    android:id="@+id/personal"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="50dp"
+                    android:src="@mipmap/me_avatar_boy"
+                    app:aiv_BoarderWidth="2dp"
+                    app:aiv_ShowBoarder="false"
+                    app:aiv_TextSizeRatio="0.4" />
+
+                <LinearLayout
+                    android:id="@+id/lalala_linearlayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/authordetial_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:text="lalala"
+                        android:visibility="visible" />
+                </LinearLayout>
+                <TextView
+                    android:text="asd"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/authordetial_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/suspensionLayout"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="vertical">
+
+                <RadioGroup
+                    android:id="@+id/RadioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="#ffffff"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/time_radio"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="按时间排序"
+                        android:textSize="20dp" />
+
+                    <RadioButton
+                        android:id="@+id/enjoy_radio"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="按分享排序"
+                        android:textSize="20dp" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/replace_layout_mine"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </com.example.ywq9682.eyepetizer.author.authordetial.MyScrollView>
+
+    <RelativeLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorWhite">
+
+        <ImageView
+            android:id="@+id/message_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@mipmap/abc_ic_ab_back_holo_light" />
+
+
+        <LinearLayout
+            android:id="@+id/repalce_asd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/asd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="-5dp"
+                android:background="@color/colorWhite" />
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/mine_set"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@color/colorWhite"
+            android:src="@mipmap/ic_launcher" />
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/replaceLayout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/titleLayout"
+        android:orientation="vertical" />
+
+
+</RelativeLayout>
