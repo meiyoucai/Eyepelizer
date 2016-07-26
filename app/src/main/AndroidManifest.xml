@@ -22,12 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".my.LoginActivity" />
         <activity android:name=".main.MainActivity" />
         <activity android:name=".video.VideoPlayer" />
         <activity android:name=".author.authordetial.AuthorDetial" />
-
+        <activity android:name=".selection.SelectionDetailActivity" />
     </application>
 
 </manifest>

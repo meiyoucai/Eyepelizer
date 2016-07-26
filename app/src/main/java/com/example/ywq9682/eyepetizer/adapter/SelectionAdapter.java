@@ -1,7 +1,9 @@
 package com.example.ywq9682.eyepetizer.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.example.ywq9682.eyepetizer.R;
 import com.example.ywq9682.eyepetizer.bean.SelectionListBean;
 import com.example.ywq9682.eyepetizer.bean.SelectionBean;
+import com.example.ywq9682.eyepetizer.selection.SelectionDetailActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,22 +59,27 @@ public class SelectionAdapter extends BaseAdapter {
                 String title = selectionBean.getIssueList().get(i).getItemList().get(j).getData().getTitle();
                 String category = selectionBean.getIssueList().get(i).getItemList().get(j).getData().getCategory();
                 int duration = selectionBean.getIssueList().get(i).getItemList().get(j).getData().getDuration();
+                String description = selectionBean.getIssueList().get(i).getItemList().get(j).getData().getDescription();
+                String playUrl = selectionBean.getIssueList().get(i).getItemList().get(j).getData().getPlayUrl();
                 try {
                     String imageUrl = selectionBean.getIssueList().get(i)
                             .getItemList().get(j).getData().getCover().getDetail();
-                    SelectionListBean bean = new SelectionListBean(type, text, title, category, imageUrl, duration);
+                    String blurredUrl = selectionBean.getIssueList().get(i)
+                            .getItemList().get(j).getData().getCover().getBlurred();
+                    int collectionCount = selectionBean.getIssueList().get(i).getItemList().get(j).getData().getConsumption().getCollectionCount();
+                    int shareCount = selectionBean.getIssueList().get(i).getItemList().get(j).getData().getConsumption().getShareCount();
+                    int replyCount = selectionBean.getIssueList().get(i).getItemList().get(j).getData().getConsumption().getReplyCount();
+                    SelectionListBean bean = new SelectionListBean(type, text, title, category, imageUrl, description, playUrl,
+                            blurredUrl, duration, collectionCount, shareCount, replyCount);
                     selectionListBeen.add(bean);
                 } catch (Exception e) {
-                    SelectionListBean bean = new SelectionListBean(type, text, title, category, null, duration);
+                    SelectionListBean bean = new SelectionListBean(type, text, title, category, null, description, playUrl,
+                            null, duration, 0, 0, 0);
                     selectionListBeen.add(bean);
 
                 }
             }
         }
-
-//        int startTime = 90;
-//        String time = new SimpleDateFormat("mm:ss").format(1200);
-//        Log.d("SelectionAdapter", time);
 
 
         notifyDataSetChanged();
@@ -146,7 +154,12 @@ public class SelectionAdapter extends BaseAdapter {
                 videoViewHolder.videoLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(context, selectionListBeen.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(context, SelectionDetailActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelableArrayList("selectionListBean", selectionListBeen);
+                        intent.putExtra("position", position);
+                        intent.putExtras(bundle);
+                        context.startActivity(intent);
                     }
                 });
                 break;
