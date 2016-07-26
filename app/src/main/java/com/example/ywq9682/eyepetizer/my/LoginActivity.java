@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.ywq9682.eyepetizer.R;
-import com.example.ywq9682.eyepetizer.base.SingleLiteOrm;
 import com.example.ywq9682.eyepetizer.main.MyApp;
 import com.example.ywq9682.eyepetizer.welcome.Users;
 
@@ -29,7 +28,6 @@ import info.hoang8f.widget.FButton;
  * Created by dllo on 16/7/20.
  */
 public class LoginActivity extends Activity implements View.OnClickListener {
-
     private Button register, registerTwo;
     private EditText password, userName, passwordRegister;
     private FButton login;
@@ -117,18 +115,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 usersBmobQuery.findObjects(LoginActivity.this, new FindListener<Users>() {
                     @Override
                     public void onSuccess(List<Users> list) {
-
                         Intent intent2 = new Intent("com.example.ywq9682.eyepetizer.ILKLL");
                         sendBroadcast(intent2);
 
-                        SingleLiteOrm.getSingleLiteOrm().getLiteOrm().insert(users);
-
+                        // SingleLiteOrm.getSingleLiteOrm().getLiteOrm().insert(users);
                     }
-
                     @Override
                     public void onError(int i, String s) {
-
-
                     }
                 });
 
@@ -138,6 +131,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             @Override
             public void onFailure(int i, String s) {
                 Toast.makeText(LoginActivity.this, "失败了", Toast.LENGTH_SHORT).show();
+
             }
         });
 

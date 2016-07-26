@@ -38,21 +38,22 @@ public class DiscoverFragment extends BaseFragment {
         discoverAdapter = new DiscoverAdapter(context);
         discoverBean = new DiscoverBean();
         String url = AllBean.DISCOVER_URL;
-        OkHttpUtils.get().url(url).build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-            }
 
-            @Override
-            public void onResponse(String response, int id) {
-                Gson gson = new Gson();
-                discoverBean = gson.fromJson(response, DiscoverBean.class);
-                //Log.d("DiscoverFragment", "discoverBean.getCount():" + discoverBean.getItemList().get(13).getData().getTitle());
-                discoverAdapter.setDiscoverBean(discoverBean);
-                recyclerView.setAdapter(discoverAdapter);
-                GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
-                recyclerView.setLayoutManager(gridLayoutManager);
-            }
-        });
+            OkHttpUtils.get().url(url).build().execute(new StringCallback() {
+                @Override
+                public void onError(Call call, Exception e, int id) {
+                }
+
+                @Override
+                public void onResponse(String response, int id) {
+                    Gson gson = new Gson();
+                    discoverBean = gson.fromJson(response, DiscoverBean.class);
+                    //Log.d("DiscoverFragment", "discoverBean.getCount():" + discoverBean.getItemList().get(13).getData().getTitle());
+                    discoverAdapter.setDiscoverBean(discoverBean);
+                    recyclerView.setAdapter(discoverAdapter);
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
+                    recyclerView.setLayoutManager(gridLayoutManager);
+                }
+            });
     }
 }

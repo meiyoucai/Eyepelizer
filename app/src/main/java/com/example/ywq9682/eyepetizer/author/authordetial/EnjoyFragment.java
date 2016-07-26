@@ -1,7 +1,6 @@
 package com.example.ywq9682.eyepetizer.author.authordetial;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -33,7 +32,7 @@ public class EnjoyFragment extends BaseFragment {
     @Override
     public void initView(View view) {
         Intent bacIntent = getActivity().getIntent();
-        int id = bacIntent.getIntExtra("lll", 0);
+        int id = bacIntent.getIntExtra("bcId", 0);
         String allUrl = url + id + endUrl;
         listview = (ListView) view.findViewById(R.id.enjoy_listview);
         datas = new TimeBean();
@@ -47,7 +46,7 @@ public class EnjoyFragment extends BaseFragment {
             public void onResponse(String response, int id) {
                 Gson gson = new Gson();
                 datas = gson.fromJson(response, TimeBean.class);
-                Log.d("TimeFragment", "datas.getTotal():" + datas.getItemList().get(id).getData().getTitle());
+//                Log.d("TimeFragment", "datas.getTotal():" + datas.getItemList().get(id).getData().getTitle());
                 timeAdapter.setTimeBean(datas);
                 listview.setAdapter(timeAdapter);
             }
