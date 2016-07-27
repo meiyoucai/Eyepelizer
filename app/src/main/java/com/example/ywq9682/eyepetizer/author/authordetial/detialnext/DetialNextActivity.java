@@ -28,7 +28,7 @@ public class DetialNextActivity extends BaseActivity {
     private DetialNextBean detialNextBean;
     View view, view2;
     private String headUrl = "http://baobab.wandoujia.com/api/v3/video/8220/detail/related?udid=cd1ee9c5b44e4f9487a505a4fe31ddcb074" +
-            "41cc8&vc=8304";
+            "41cc8&vc=";
     private String url;
     private String endUrl = "&vn=2.3.5&deviceModel=MI%205&first_channel\" +\n" +
             "\"=eyepetizer_xiaomi_market&last_channel=eyepetizer_xiaomi_market&system_version_code=23";
