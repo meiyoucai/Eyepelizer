@@ -2,7 +2,10 @@ package com.android.tedcoder.wkvideoplayer.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.media.AudioManager;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -12,6 +15,7 @@ import android.widget.TextView;
 import com.android.tedcoder.wkvideoplayer.R;
 import com.android.tedcoder.wkvideoplayer.model.Video;
 import com.android.tedcoder.wkvideoplayer.model.VideoUrl;
+import com.android.tedcoder.wkvideoplayer.util.DensityUtil;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -122,7 +126,7 @@ public class MediaController extends FrameLayout implements SeekBar.OnSeekBarCha
     /***
      * 强制横屏模式
      */
-    public void forceLandscapeMode(){
+    public void forceLandscapeMode() {
         mExpandImg.setVisibility(INVISIBLE);
         mShrinkImg.setVisibility(INVISIBLE);
     }
@@ -186,6 +190,8 @@ public class MediaController extends FrameLayout implements SeekBar.OnSeekBarCha
         mShrinkImg = (ImageView) findViewById(R.id.shrink);
         mMenuView = findViewById(R.id.view_menu);
         mMenuViewPlaceHolder = findViewById(R.id.view_menu_placeholder);
+        audioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
+        maxVolum = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         initData();
     }
 
@@ -198,6 +204,88 @@ public class MediaController extends FrameLayout implements SeekBar.OnSeekBarCha
         setPlayState(PlayState.PAUSE);
         mVideoFormatSwitcher.setEasySwitcherCallback(mFormatSwitcherCallback);
         mVideoSrcSwitcher.setEasySwitcherCallback(mSrcSwitcherCallback);
+    }
+
+    private float height;
+    private float width;
+    private float startY;
+    private int mVolume;
+    private AudioManager audioManager;
+    private float toucheRang;
+    private int maxVolum;
+    private int volumuAdd;
+    private float startX;
+    private float middle;
+    private Brightness brightness;
+
+    public void setBrightness(Brightness brightness) {
+        this.brightness = brightness;
+    }
+
+
+
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN://手指按下屏幕的时候回调这个方法
+                //获取屏幕高度
+                height = DensityUtil.getWidthInPx(getContext());
+                width = DensityUtil.getHeightInPx(getContext());
+
+                //记录我们第一次按下的坐标
+                startY = event.getRawY();
+                startX = event.getRawX();
+                middle = Math.max(height, width) / 2;
+
+                Log.d("ssdf", "middle:" + middle);
+                Log.d("ssdf", "startX:" + startX);
+                toucheRang = (int) Math.min(height, width);
+                Log.d("sss", "toucheRang:" + toucheRang);
+                if (startX > middle) {
+                    Log.d("sss", "startY:" + startY);
+                    //获取当前的音量
+                    mVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                    Log.d("sssm", "mVolume:" + mVolume);
+                }
+                break;
+            case MotionEvent.ACTION_MOVE://手指在屏幕移动的时候回调这个方法
+                // 来到新的坐标
+                    float endY = event.getRawY();
+                    //计算偏移
+                    float distanceY = startY - endY;
+                    Log.d("sss", "distanceY:" + distanceY);
+                if (startX > middle) {
+                    //改变的音量 = 最大声音 * (滑动距离 / 滑动的最大区域)
+                    int delta = (int) ((distanceY / toucheRang) * maxVolum);
+                    Log.d("sssd", "delta:" + delta);
+                    if (delta != 0) {
+                        //具体的音量 = 当前的音量 + 改变的音量
+//                    int volumuAdd = Math.min(Math.max(mVolume + delta, 0), maxVolum);
+                        volumuAdd = Math.min(mVolume + delta, maxVolum);
+                        Log.d("sss", "volumu:" + volumuAdd);
+                        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volumuAdd, AudioManager.ADJUST_RAISE);
+                    }
+//                if (delta < 0) {
+////                    int volumuReduction = Math.min(Math.max(mVolume + delta, 0), maxVolum);
+//                    int volumuReduction = Math.max(mVolume + delta, 0);
+//                    Log.d("sssf", "volumuReduction:" + volumuReduction);
+//                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volumuReduction, AudioManager.ADJUST_LOWER);
+//                }
+                }else {
+                    Log.d("ddff", "distanceY/ toucheRang:" + (distanceY / toucheRang));
+                    if(brightness == null){
+                        brightness = (Brightness) getContext();
+                    }
+                    brightness.setBrightness(distanceY, toucheRang);
+                }
+                break;
+            case MotionEvent.ACTION_UP://手指在抬起的时候回调这个方法
+
+                break;
+        }
+
+        return true;
     }
 
     @SuppressLint("SimpleDateFormat")

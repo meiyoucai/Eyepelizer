@@ -3,6 +3,7 @@ package com.example.ywq9682.eyepetizer.adapter;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.example.ywq9682.eyepetizer.R;
 import com.example.ywq9682.eyepetizer.bean.SelectionListBean;
 import com.example.ywq9682.eyepetizer.selection.FlyTextView;
+import com.example.ywq9682.eyepetizer.video.VideoPlayer;
 
 import java.util.ArrayList;
 
@@ -29,7 +31,7 @@ public class SelectionDetailViewAdapter extends PagerAdapter {
 
     private Context context;
     private ArrayList<SelectionListBean> selectionListBean;
-    private int pos;
+    private int pos,positions;
 
     public void setPos(int pos) {
         this.pos = pos;
@@ -55,8 +57,8 @@ public class SelectionDetailViewAdapter extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-        position=position+pos;
+    public Object instantiateItem(ViewGroup container, final int position) {
+        positions=position+pos;
         View view = LayoutInflater.from(context).inflate(R.layout.item_selection_detail_view, container, false);
         ImageView selectionDetailIv = (ImageView) view.findViewById(R.id.selection_detail_iv);
         ImageView selectionBlurredIv = (ImageView) view.findViewById(R.id.selection_blurred_iv);
@@ -68,22 +70,33 @@ public class SelectionDetailViewAdapter extends PagerAdapter {
         TextView selectionCollectionCountTv = (TextView) view.findViewById(R.id.selection_collectionCount_tv);
         TextView selectionShareCountTv = (TextView) view.findViewById(R.id.selection_shareCount_tv);
         TextView selectionReplyCountTv = (TextView) view.findViewById(R.id.selection_reply_count_tv);
+        selectionPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(context, VideoPlayer.class);
+                intent.putExtra("urlS",selectionListBean.get(positions).getPlayUrl());
+                intent.putExtra("title",selectionListBean.get(positions).getTitle());
+                Log.d("ssdd", selectionListBean.get(positions).getPlayUrl());
+                Log.d("ssdd", selectionListBean.get(positions).getTitle());
+                context.startActivity(intent);
+            }
+        });
 
-        Glide.with(context).load(selectionListBean.get(position).getImageUrl()).into(selectionDetailIv);
-        Glide.with(context).load(selectionListBean.get(position).getBlurredUrl()).into(selectionBlurredIv);
+        Glide.with(context).load(selectionListBean.get(positions).getImageUrl()).into(selectionDetailIv);
+        Glide.with(context).load(selectionListBean.get(positions).getBlurredUrl()).into(selectionBlurredIv);
 
         selectionDescription.setTextColor(Color.WHITE);
         selectionDescription.setTextSize(12);
         selectionTitle.setTextColor(Color.WHITE);
         selectionTitle.setTextSize(15);
-        selectionTitle.setTexts(selectionListBean.get(position).getTitle());
-        selectionCategory.setText("#" + selectionListBean.get(position).getCategory());
-        int times = selectionListBean.get(position).getDuration();
+        selectionTitle.setTexts(selectionListBean.get(positions).getTitle());
+        selectionCategory.setText("#" + selectionListBean.get(positions).getCategory());
+        int times = selectionListBean.get(positions).getDuration();
         selectionDuration.setText(times / 600 + "" + times % 600 / 60 + "'" + times % 60 / 10 + "" + times % 60 % 10 + "''");
-        selectionDescription.setTexts(selectionListBean.get(position).getDescription());
-        selectionCollectionCountTv.setText(String.valueOf(selectionListBean.get(position).getCollectionCount()));
-        selectionShareCountTv.setText(String.valueOf(selectionListBean.get(position).getShareCount()));
-        selectionReplyCountTv.setText(String.valueOf(selectionListBean.get(position).getReplyCount()));
+        selectionDescription.setTexts(selectionListBean.get(positions).getDescription());
+        selectionCollectionCountTv.setText(String.valueOf(selectionListBean.get(positions).getCollectionCount()));
+        selectionShareCountTv.setText(String.valueOf(selectionListBean.get(positions).getShareCount()));
+        selectionReplyCountTv.setText(String.valueOf(selectionListBean.get(positions).getReplyCount()));
 
         selectionTitle.startAnimation();
         selectionDescription.startAnimation();

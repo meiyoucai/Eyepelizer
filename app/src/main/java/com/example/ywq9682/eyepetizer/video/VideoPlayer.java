@@ -1,9 +1,12 @@
 package com.example.ywq9682.eyepetizer.video;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -12,6 +15,7 @@ import com.android.tedcoder.wkvideoplayer.dlna.service.DLNAService;
 import com.android.tedcoder.wkvideoplayer.model.Video;
 import com.android.tedcoder.wkvideoplayer.model.VideoUrl;
 import com.android.tedcoder.wkvideoplayer.util.DensityUtil;
+import com.android.tedcoder.wkvideoplayer.view.Brightness;
 import com.android.tedcoder.wkvideoplayer.view.MediaController;
 import com.android.tedcoder.wkvideoplayer.view.SuperVideoPlayer;
 import com.example.ywq9682.eyepetizer.R;
@@ -22,9 +26,14 @@ import java.util.ArrayList;
 /**
  * Created by YWQ9682 on 2016/7/25.
  */
-public class VideoPlayer extends BaseActivity implements View.OnClickListener {
+public class VideoPlayer extends BaseActivity implements Brightness {
     private SuperVideoPlayer mSuperVideoPlayer;
     private View mPlayBtnView;
+    private String urlS;
+    private String urlF;
+    private String title;
+    private MediaController mediaController;
+
     @Override
     public int setLayout() {
         return R.layout.activity_video;
@@ -34,14 +43,23 @@ public class VideoPlayer extends BaseActivity implements View.OnClickListener {
     public void initView() {
         mSuperVideoPlayer = (SuperVideoPlayer) findViewById(R.id.video_player_item_1);
         mPlayBtnView = findViewById(R.id.play_btn);
-        mPlayBtnView.setOnClickListener(this);
+//        mPlayBtnView.setOnClickListener(this);
         mSuperVideoPlayer.setVideoPlayCallback(mVideoPlayCallback);
+        mediaController = new MediaController(this);
+        mediaController.setBrightness(this);
         startDLNAService();
     }
 
     @Override
     public void initData() {
-
+        Intent intent = getIntent();
+        urlF = intent.getStringExtra("urlF");
+        urlS = intent.getStringExtra("urlS");
+        title = intent.getStringExtra("title");
+        Log.d("ssd", urlF + " ");
+        Log.d("ssd", urlS + " ");
+        Log.d("ssd", title + " ");
+        playerVideo();
     }
 
 
@@ -71,41 +89,25 @@ public class VideoPlayer extends BaseActivity implements View.OnClickListener {
         }
     };
 
-    @Override
-    public void onClick(View view) {
+    public void playerVideo() {
         mPlayBtnView.setVisibility(View.GONE);
         mSuperVideoPlayer.setVisibility(View.VISIBLE);
         mSuperVideoPlayer.setAutoHideController(false);
         Video video = new Video();
         VideoUrl videoUrl1 = new VideoUrl();
         videoUrl1.setFormatName("720P");
-        videoUrl1.setFormatUrl("http://baobab.wandoujia.com/api/v1/playUrl?vid=8262&editionType=high");
+        videoUrl1.setFormatUrl(urlS);
+
         VideoUrl videoUrl2 = new VideoUrl();
         videoUrl2.setFormatName("480P");
-        videoUrl2.setFormatUrl("http://baobab.wandoujia.com/api/v1/playUrl?vid=8262&editionType=normal");
+        videoUrl2.setFormatUrl(urlS);
         ArrayList<VideoUrl> arrayList1 = new ArrayList<>();
         arrayList1.add(videoUrl1);
         arrayList1.add(videoUrl2);
-        video.setVideoName("测试视频一");
+        video.setVideoName(title);
         video.setVideoUrl(arrayList1);
-
-        Video video2 = new Video();
-        VideoUrl videoUrl3 = new VideoUrl();
-        videoUrl3.setFormatName("720P");
-        videoUrl3.setFormatUrl("http://7xkbzx.com1.z0.glb.clouddn.com/SampleVideo_1080x720_10mb.mp4");
-        VideoUrl videoUrl4 = new VideoUrl();
-        videoUrl4.setFormatName("480P");
-        videoUrl4.setFormatUrl("http://7xkbzx.com1.z0.glb.clouddn.com/SampleVideo_720x480_10mb.mp4");
-        ArrayList<VideoUrl> arrayList2 = new ArrayList<>();
-        arrayList2.add(videoUrl3);
-        arrayList2.add(videoUrl4);
-        video2.setVideoName("测试视频二");
-        video2.setVideoUrl(arrayList2);
-
         ArrayList<Video> videoArrayList = new ArrayList<>();
         videoArrayList.add(video);
-        videoArrayList.add(video2);
-
         mSuperVideoPlayer.loadMultipleVideo(videoArrayList,0,0,0);
     }
 
@@ -122,6 +124,7 @@ public class VideoPlayer extends BaseActivity implements View.OnClickListener {
      */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
+        Log.d("bbcc", "dsf");
         super.onConfigurationChanged(newConfig);
         if (null == mSuperVideoPlayer) return;
         /***
@@ -133,6 +136,7 @@ public class VideoPlayer extends BaseActivity implements View.OnClickListener {
             getWindow().getDecorView().invalidate();
             float height = DensityUtil.getWidthInPx(this);
             float width = DensityUtil.getHeightInPx(this);
+            Log.d("bbcc", height + ", " + width);
             mSuperVideoPlayer.getLayoutParams().height = (int) width;
             mSuperVideoPlayer.getLayoutParams().width = (int) height;
         } else if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -169,5 +173,43 @@ public class VideoPlayer extends BaseActivity implements View.OnClickListener {
     private void stopDLNAService() {
         Intent intent = new Intent(getApplicationContext(), DLNAService.class);
         stopService(intent);
+    }
+    @Override
+    public void setBrightness(float distanceY, float toucheRang) {
+        Log.d("ddssa", "getScreenBrightness(this):" + getScreenBrightness(this));
+        int fanalBright = (int) Math.min(distanceY / toucheRang * 255 + getScreenBrightness(this), 255);
+        if (fanalBright < 0 ){
+            fanalBright = 0;
+        }
+        setBrightness(this, fanalBright);
+
+    }
+    /**
+     * 获取屏幕的亮度
+     *
+     * @param activity
+     * @return
+     */
+    public static int getScreenBrightness(Activity activity) {
+        int brightnessValue = 0;
+        try {
+            brightnessValue = android.provider.Settings.System.getInt(
+                    activity.getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return brightnessValue;
+    }
+    /**
+     * 设置屏幕亮度
+     *
+     * @param activity
+     * @param brightness
+     */
+    public static void setBrightness(Activity activity, int brightness) {
+        WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
+        lp.screenBrightness = Float.valueOf(brightness) * (1f / 255f);
+        activity.getWindow().setAttributes(lp);
     }
 }
