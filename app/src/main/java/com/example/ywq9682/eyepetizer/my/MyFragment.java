@@ -26,9 +26,11 @@ import android.widget.Toast;
 
 import com.example.ywq9682.eyepetizer.R;
 import com.example.ywq9682.eyepetizer.base.BaseFragment;
-import com.example.ywq9682.eyepetizer.base.SingleLiteOrm;
 import com.example.ywq9682.eyepetizer.main.MyApp;
+import com.example.ywq9682.eyepetizer.tools.Merchant;
+import com.example.ywq9682.eyepetizer.tools.OrderUtils;
 import com.example.ywq9682.eyepetizer.welcome.Users;
+import com.fuqianla.paysdk.FuQianLaPay;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -38,6 +40,8 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.UpdateListener;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.onekeyshare.OnekeyShare;
 
 /**
  * Created by YWQ9682 on 2016/7/16.
@@ -46,7 +50,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     private ImageView headImage, headImageTrue;
     private PopupWindow popupWindow;
     private ImageView mMap;
-    private TextView returnTv;
+    private TextView returnTv, pay;
     Users users;
     BmobUser bmobUser;
     private BroadCast broadCast;
@@ -79,6 +83,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         popupWindow = new PopupWindow();
         headImage = (ImageView) view.findViewById(R.id.head_image);
         mMap = (ImageView) view.findViewById(R.id.map);
+        pay = (TextView) view.findViewById(R.id.my_pay);
+        pay.setOnClickListener(this);
         returnTv = (TextView) view.findViewById(R.id.return_login);
         headImageTrue = (ImageView) view.findViewById(R.id.head_image_true);
         headImage.setOnClickListener(this);
@@ -123,7 +129,6 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case ALBUM_REQUEST_CODE:
@@ -155,8 +160,6 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                     // eventBus.setImage(photo);
                     headImageTrue.setImageBitmap(photo);
                     // EventBus.getDefault().post(eventBus);
-
-
                     // 把图片显示在ImageView控件上
                     //                设置数据保存到bmob
                     Users users = BmobUser.getCurrentUser(context, Users.class);
@@ -165,6 +168,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                     matrix.setScale(0.5f, 0.5f);
                     photo = Bitmap.createBitmap(photo, 0, 0, photo.getWidth(), photo.getHeight(), matrix, false);
                     users.setImagePhoto(photo);
+                    Log.d("MyFragment", "photo:" + photo);
 //                  SingleLiteOrm.getSingleLiteOrm().getLiteOrm().insert(users);
                     users.update(context, new UpdateListener() {
                         @Override
@@ -204,7 +208,6 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
 
                 @Override
                 public void onError(int i, String s) {
-
                 }
             });
         }
@@ -235,11 +238,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
             case R.id.head_image:
                 Intent intent = new Intent(context, LoginActivity.class);
                 context.startActivity(intent);
-
-
                 break;
-
-
             case R.id.head_image_true:
 
                 if (popupWindow != null || !popupWindow.isShowing()) {
@@ -266,30 +265,63 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                         }
                     });
                 }
+                break;
+            case R.id.my_pay:
+
+                FuQianLaPay pay = new FuQianLaPay.Builder(getActivity())
+                        .partner(Merchant.MERCHANT_NO)//商户号
+                        .alipay(true)
+                        .orderID(OrderUtils.getOutTradeNo())//订单号
+                        .amount(Double.parseDouble("0.01"))//金额
+                        .subject("意外怀孕怎么办??到大连天伦不孕不育医院")//商品名称
+                        .body("你负责来,我们负责生")//商品交易详情
+                        .notifyUrl(Merchant.MERCHANT_NOTIFY_URL)
+                        .build();
+                pay.startPay();
+
 
                 break;
             case R.id.map:
+                ShareSDK.initSDK(getContext());
+                OnekeyShare oks = new OnekeyShare();
+                //关闭sso授权
+                oks.disableSSOWhenAuthorize();
 
+// 分享时Notification的图标和文字  2.5.9以后的版本不调用此方法
+                //oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
+                // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
+//                oks.setTitle(getString(R.string.share));
+                // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
+                oks.setTitleUrl("http://sharesdk.cn");
+                // text是分享文本，所有平台都需要这个字段
+                oks.setText("我是分享文本");
+                // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+                //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+                // url仅在微信（包括好友和朋友圈）中使用
+                oks.setUrl("http://sharesdk.cn");
+                // comment是我对这条分享的评论，仅在人人网和QQ空间使用
+                oks.setComment("我是测试评论文本");
+                // site是分享此内容的网站名称，仅在QQ空间使用
+                oks.setSite(getString(R.string.app_name));
+                // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+                oks.setSiteUrl("http://sharesdk.cn");
+
+// 启动分享GUI
+                oks.show(getContext());
 
                 break;
             case R.id.return_login:
-
-                SingleLiteOrm.getSingleLiteOrm().getLiteOrm().deleteAll(Users.class);
+                // SingleLiteOrm.getSingleLiteOrm().getLiteOrm().deleteAll(Users.class);
                 BmobUser bmobUser = BmobUser.getCurrentUser(context);
-
                 bmobUser.logOut(MyApp.context);
-
                 Toast.makeText(context, "退出", Toast.LENGTH_SHORT).show();
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("是否退出");
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
                         Intent intent = new Intent("com.example.ywq9682.eyepetizer.ILKL");
                         context.sendBroadcast(intent);
-
-
                     }
                 });
 
@@ -304,21 +336,13 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 break;
 
             case R.id.cancel:
-
                 Toast.makeText(context, "取消", Toast.LENGTH_SHORT).show();
-
                 break;
             case R.id.change_headimage:
-
-
                 Intent intent3 = new Intent(Intent.ACTION_PICK, null);
                 intent3.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, IMAGE_UNSPECIFIED);
                 startActivityForResult(intent3, ALBUM_REQUEST_CODE);
-
-
                 break;
-
-
         }
     }
 
@@ -350,25 +374,18 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
             if (bmobUser != null) {
                 headImageTrue.setVisibility(View.VISIBLE);
                 headImage.setVisibility(View.GONE);
-
             } else {
-
                 headImageTrue.setVisibility(View.GONE);
                 headImage.setVisibility(View.VISIBLE);
             }
         }
-
-
     }
 
     class BreadCast extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-
 //            headImageTrue.setVisibility(View.VISIBLE);
 //            headImage.setVisibility(View.GONE);
-
-
         }
     }
 

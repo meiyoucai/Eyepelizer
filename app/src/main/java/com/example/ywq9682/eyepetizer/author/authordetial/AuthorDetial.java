@@ -63,13 +63,13 @@ public class AuthorDetial extends BaseActivity implements OnScrollListener, View
         titleLayout = (RelativeLayout) findViewById(R.id.titleLayout);
         myScrollView.setOnScrollListener(this);
         Intent bacIntent = getIntent();
-        String nameTv = bacIntent.getStringExtra("lllll");
-        String contentTv = bacIntent.getStringExtra("llll");
+        String nameTv = bacIntent.getStringExtra("bcTitle");
+        String contentTv = bacIntent.getStringExtra("bcDescription");
         name.setText(nameTv);
         timeRb.setOnClickListener(this);
         enjoyRb.setOnClickListener(this);
         content.setText(contentTv);
-        Glide.with(this).load(bacIntent.getStringExtra("llllll")).centerCrop().crossFade().into(personal);
+        Glide.with(this).load(bacIntent.getStringExtra("bcIcon")).centerCrop().crossFade().into(personal);
         ViewGroup.LayoutParams params = radioGroupLayout.getLayoutParams();
         radioGroupHeight = params.height;
         ViewGroup.LayoutParams params1 = name.getLayoutParams();

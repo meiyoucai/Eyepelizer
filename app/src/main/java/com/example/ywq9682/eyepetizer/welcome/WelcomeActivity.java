@@ -1,9 +1,6 @@
 package com.example.ywq9682.eyepetizer.welcome;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -61,7 +58,7 @@ public class WelcomeActivity extends BaseActivity implements Animation.Animation
 
     @Override
     public void onAnimationEnd(Animation animation) {
-//动画结束时结束欢迎界面并转到软件的主界面
+        //动画结束时结束欢迎界面并转到软件的主界面
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         this.finish();

@@ -3,9 +3,11 @@ package com.example.ywq9682.eyepetizer.author.authordetial;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.ywq9682.eyepetizer.R;
+import com.example.ywq9682.eyepetizer.author.authordetial.detialnext.DetialNextActivity;
 import com.example.ywq9682.eyepetizer.base.BaseFragment;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -27,15 +29,14 @@ public class TimeFragment extends BaseFragment {
     @Override
     public int setLayout() {
         return R.layout.fragment_author_time;
-
     }
 
     @Override
     public void initView(View view) {
-        Log.d("TimeFragment", "kkkkkkk");
         Intent bacIntent = getActivity().getIntent();
-        int id = bacIntent.getIntExtra("lll", 0);
+        int id = bacIntent.getIntExtra("bcId", 0);
         String allUrl = url + id + endUrl;
+        Log.d("TimeFragment", allUrl);
         listview = (ListView) view.findViewById(R.id.time_listview);
         datas = new TimeBean();
         timeAdapter = new TimeAdapter(context);
@@ -48,11 +49,25 @@ public class TimeFragment extends BaseFragment {
             public void onResponse(String response, int id) {
                 Gson gson = new Gson();
                 datas = gson.fromJson(response, TimeBean.class);
-                Log.d("TimeFragment", "datas.getTotal():" + datas.getItemList().get(id).getData().getTitle());
+                // Log.d("TimeFragment", "datas.getTotal():" + datas.getItemList().get(id).getData().getTitle());
                 timeAdapter.setTimeBean(datas);
                 listview.setAdapter(timeAdapter);
             }
         });
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Intent intent = new Intent(context, DetialNextActivity.class);
+
+                intent.putExtra("ok", datas.getItemList().get(i).getData().getId());
+                Log.d("TimeFragment", "datas.getItemList().get(i).getData().getId():" + datas.getItemList().get(i).getData().getId());
+                context.startActivity(intent);
+
+
+            }
+        });
+
     }
 
     @Override
