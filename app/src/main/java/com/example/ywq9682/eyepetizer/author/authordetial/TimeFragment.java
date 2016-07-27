@@ -36,6 +36,7 @@ public class TimeFragment extends BaseFragment {
         Intent bacIntent = getActivity().getIntent();
         int id = bacIntent.getIntExtra("bcId", 0);
         String allUrl = url + id + endUrl;
+        Log.d("TimeFragment", allUrl);
         listview = (ListView) view.findViewById(R.id.time_listview);
         datas = new TimeBean();
         timeAdapter = new TimeAdapter(context);

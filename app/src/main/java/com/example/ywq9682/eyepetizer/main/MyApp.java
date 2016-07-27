@@ -3,6 +3,7 @@ package com.example.ywq9682.eyepetizer.main;
 import android.app.Application;
 import android.content.Context;
 
+import com.fuqianla.paysdk.FuQianLa;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.concurrent.TimeUnit;
@@ -29,5 +30,8 @@ public class MyApp extends Application {
                 //其他配置
                 .build();
         OkHttpUtils.initClient(okHttpClient);
+
+        //支付环节
+        FuQianLa.getInstance().init(getApplicationContext());
     }
 }

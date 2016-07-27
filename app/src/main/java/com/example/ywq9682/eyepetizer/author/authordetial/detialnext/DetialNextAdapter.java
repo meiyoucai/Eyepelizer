@@ -46,11 +46,10 @@ public class DetialNextAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder viewHolder = null;
         if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_detialnext_hotspot, null);
+            view = LayoutInflater.from(context).inflate(R.layout.item_detialnext_hotspot, viewGroup,false);
             viewHolder = new ViewHolder(view);
             view.setTag(viewHolder);
         } else {
-
             viewHolder = (ViewHolder) view.getTag();
         }
         viewHolder.title.setText(detialNextBean.getItemList().get(i+1).getData().getHeader().getTitle());
