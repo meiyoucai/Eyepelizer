@@ -48,7 +48,7 @@ public class SelectionFragment extends BaseFragment {
     protected void initData() {
         itemPositionBroadcast = new ItemPositionBroadcast();
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(context.getPackageName() + "selectionListView");
+        intentFilter.addAction(context.getPackageName()+"selectionListView");
         context.registerReceiver(itemPositionBroadcast, intentFilter);
         selectionAdapter = new SelectionAdapter(context);
         selectionBean = new SelectionBean();
@@ -130,7 +130,7 @@ public class SelectionFragment extends BaseFragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            int position = intent.getIntExtra("ItemPosition", 0);
+            int position = intent.getIntExtra("itemPosition", 0);
             pullToRefreshListView.getRefreshableView().setSelection(position);
         }
     }

@@ -57,12 +57,10 @@ public class SelectionDetailViewAdapter extends PagerAdapter {
     }
 
     public Object instantiateItem(ViewGroup container, int position) {
-        pos = position;
         View view = LayoutInflater.from(context).inflate(R.layout.item_selection_detail_view, container, false);
         ImageView selectionDetailIv = (ImageView) view.findViewById(R.id.selection_detail_iv);
         Glide.with(context).load(selectionListBean.get(position).getImageUrl()).into(selectionDetailIv);
         ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(selectionDetailIv, "scaleX", 1, 1.1f);
-
         objectAnimator.setRepeatMode(ValueAnimator.REVERSE);
         objectAnimator.setRepeatCount(ValueAnimator.INFINITE);
         ObjectAnimator animator = ObjectAnimator.ofFloat(selectionDetailIv, "scaleY", 1, 1.1f);
@@ -72,10 +70,9 @@ public class SelectionDetailViewAdapter extends PagerAdapter {
         objectAnimator.setDuration(5000);
         animator.start();
         objectAnimator.start();
-        if (selectionListBean.get(position).getImageUrl() != null) {
 
-            container.addView(view);
-        }
+        container.addView(view);
+
         return view;
     }
 

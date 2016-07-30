@@ -20,6 +20,7 @@
     <!-- 蓝牙分享所需的权限 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -44,6 +45,11 @@
         <activity android:name=".main.MainActivity" />
         <activity android:name=".author.authordetial.AuthorDetial" />
         <activity android:name=".selection.SelectionDetailActivity" />
+        <activity android:name=".discover.banner.BannerWeb" />
+        <activity android:name=".discover.banner.BannerSearchActivity" />
+        <activity android:name=".selection.SelectionDetailActivity" />
+        <activity android:name=".discover.top.TopActivity" />
+        <activity android:name=".discover.gridview.GridviewActivity" />
         <activity android:name=".author.authordetial.detialnext.DetialNextActivity" />
         <!-- 付钱拉 SDK -->
 
@@ -80,6 +86,8 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize">
+
+
             <intent-filter>
                 <data android:scheme="tencent100371282" />
 

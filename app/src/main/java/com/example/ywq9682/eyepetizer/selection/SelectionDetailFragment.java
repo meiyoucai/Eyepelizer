@@ -195,7 +195,7 @@ public class SelectionDetailFragment extends BaseFragment implements View.OnTouc
                 break;
             case R.id.selection_detail_return:
                 Intent intentList=new Intent(context.getPackageName()+"selectionListView");
-                intentList.putExtra("ItemPosition",position);
+                intentList.putExtra("itemPosition",position);
                 context.sendBroadcast(intentList);
                 getActivity().finish();
                 break;

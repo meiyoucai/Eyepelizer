@@ -27,11 +27,10 @@ public class DetialNextActivity extends BaseActivity {
     private DetialNextAdapter detialNextAdapter;
     private DetialNextBean detialNextBean;
     View view, view2;
-    private String headUrl = "http://baobab.wandoujia.com/api/v3/video/8220/detail/related?udid=cd1ee9c5b44e4f9487a505a4fe31ddcb074" +
-            "41cc8&vc=8304";
+    private String headUrl = "http://baobab.wandoujia.com/api/v3/video/";
     private String url;
-    private String endUrl = "&vn=2.3.5&deviceModel=MI%205&first_channel\" +\n" +
-            "\"=eyepetizer_xiaomi_market&last_channel=eyepetizer_xiaomi_market&system_version_code=23";
+    private String endUrl = "/detail/related?udid=cd1ee9c5b44e4f9487a505a4fe31ddcb07441cc8&vc\n" +
+            "// =121&vn=2.3.5&deviceModel=MI%205&first_channel=eyepetizer_xiaomi_market&last_channel=eyepetizer_xiaomi_market&system_version_code=23";
 
     @Override
     public int setLayout() {
@@ -43,7 +42,7 @@ public class DetialNextActivity extends BaseActivity {
 
         Intent bacIntent = getIntent();
         int id = bacIntent.getIntExtra("ok", 0);
-        Log.d("DetialNextActivity", "id:" + id) ;
+        Log.d("DetialNextActivity", "id:" + id);
         url = headUrl + id + endUrl;
         listView = (ListView) findViewById(R.id.detialnext_listview);
         detialNextBean = new DetialNextBean();
@@ -79,8 +78,11 @@ public class DetialNextActivity extends BaseActivity {
                 detialNextBean = gson.fromJson(response, DetialNextBean.class);
                 //Log.d("lanou", "detialNextBean.getItemList().get(0).getData().getHeader().getId():" + detialNextBean.getItemList().get(0).getData().getHeader().getId());
                 detialNextHeadAdapter.setDetialNextBean(detialNextBean);
-                recyclerView.setLayoutManager(new LinearLayoutManager(DetialNextActivity.this, LinearLayoutManager.HORIZONTAL, true));
                 recyclerView.setAdapter(detialNextHeadAdapter);
+                LinearLayoutManager   linearLayoutManager=new LinearLayoutManager(DetialNextActivity.this);
+                linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                recyclerView.setLayoutManager(linearLayoutManager);
+
             }
         });
         view2 = LayoutInflater.from(this).inflate(R.layout.item_detialnext_head_title, null);

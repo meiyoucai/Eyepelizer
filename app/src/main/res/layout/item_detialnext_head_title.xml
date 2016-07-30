@@ -18,6 +18,7 @@
         android:id="@+id/item_detialnext_head_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/item_detialnext_head_image"
         android:text="sadsad" />
 

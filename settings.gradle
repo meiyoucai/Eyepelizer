@@ -1,2 +1,2 @@
-include ':app', ':wqkvideoplayer'
+include ':app', ':wqkvideoplayer', ':AndTinder'
 include ':library'

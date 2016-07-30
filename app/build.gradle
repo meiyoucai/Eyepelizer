@@ -43,6 +43,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.3.2'
     compile files('libs/alipaySDK.jar')
     compile files('libs/fuqianla.jar')
+    compile 'com.youth.banner:banner:+'
     compile files('libs/MobCommons-2016.0707.1708.jar')
     compile files('libs/MobTools-2016.0707.1708.jar')
     compile files('libs/ShareSDK-Core-2.7.4.jar')
@@ -51,4 +52,5 @@ dependencies {
     compile files('libs/ShareSDK-SinaWeibo-2.7.4.jar')
     compile files('libs/ShareSDK-Wechat-Core-2.7.4.jar')
     compile files('libs/ShareSDK-Wechat-Moments-2.7.4.jar')
+    compile project(':AndTinder')
 }

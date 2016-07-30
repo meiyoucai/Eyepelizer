@@ -50,6 +50,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     private ImageView headImage, headImageTrue;
     private PopupWindow popupWindow;
     private ImageView mMap;
+    private TextView theme;
     private TextView returnTv, pay;
     Users users;
     BmobUser bmobUser;
@@ -73,6 +74,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         broadCast = new BroadCast();
         broadCasst = new BroadCasst();
         breadCast = new BreadCast();
+
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.example.ywq9682.eyepetizer.ILK");
         intentFilter.addAction("com.example.ywq9682.eyepetizer.ILKL");
@@ -81,6 +83,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         context.registerReceiver(broadCasst, intentFilter);
         context.registerReceiver(broadCast, intentFilter);
         popupWindow = new PopupWindow();
+        theme = (TextView) view.findViewById(R.id.buqiyan);
         headImage = (ImageView) view.findViewById(R.id.head_image);
         mMap = (ImageView) view.findViewById(R.id.map);
         pay = (TextView) view.findViewById(R.id.my_pay);
@@ -266,8 +269,14 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                     });
                 }
                 break;
-            case R.id.my_pay:
+            case R.id.buqiyan:
 
+                Toast.makeText(context, "lalala", Toast.LENGTH_SHORT).show();
+
+                break;
+            case R.id.my_pay:
+//我们在这里继承了支付宝的功能添加了FUQIANLA 的 jar包 在添加一些方法 清单文件加入权限  这里就可以实现功能了
+                //alipaysSdk   与fuqianla  JAr 的包
                 FuQianLaPay pay = new FuQianLaPay.Builder(getActivity())
                         .partner(Merchant.MERCHANT_NO)//商户号
                         .alipay(true)
@@ -282,11 +291,19 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
 
                 break;
             case R.id.map:
+                //显示现在官网上的JAR包  然后打开那里面的一个jar包 输入你需要分享的去处
+                //assets  放入src 下的 main包 下面
+                // res 下的 drawable   value等 放入res下
+                //cn放在android 下的与你工程平级的java下
+                //  解压下来之后会出现一个新的包  将里面的内容 挨个放入project中
+                //全部放入 切记全部放在对应的包下 之后再清单文件中 注册,
+                //在从官网上下载对应的方法,导入即可
+
+
                 ShareSDK.initSDK(getContext());
                 OnekeyShare oks = new OnekeyShare();
                 //关闭sso授权
                 oks.disableSSOWhenAuthorize();
-
 // 分享时Notification的图标和文字  2.5.9以后的版本不调用此方法
                 //oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
                 // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
