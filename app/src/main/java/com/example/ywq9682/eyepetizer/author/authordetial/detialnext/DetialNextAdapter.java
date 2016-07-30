@@ -29,7 +29,7 @@ public class DetialNextAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return detialNextBean == null ? 0 : detialNextBean.getItemList().size()-1;
+        return detialNextBean == null ? 0 : detialNextBean.getItemList().size() - 1;
     }
 
     @Override
@@ -46,22 +46,20 @@ public class DetialNextAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder viewHolder = null;
         if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_detialnext_hotspot, viewGroup,false);
+            view = LayoutInflater.from(context).inflate(R.layout.item_detialnext_hotspot, viewGroup, false);
             viewHolder = new ViewHolder(view);
             view.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
-        viewHolder.title.setText(detialNextBean.getItemList().get(i+1).getData().getHeader().getTitle());
+        viewHolder.title.setText(detialNextBean.getItemList().get(i + 1).getData().getHeader().getTitle());
         DetialNextRecyclerAdapter detialNextRecyclerAdapter = new DetialNextRecyclerAdapter(context);
-        detialNextRecyclerAdapter.setDetialNextBean(detialNextBean.getItemList().get(i+1).getData());
+        detialNextRecyclerAdapter.setDetialNextBean(detialNextBean.getItemList().get(i + 1).getData());
         viewHolder.recyclerView.setAdapter(detialNextRecyclerAdapter);
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(context);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         viewHolder.recyclerView.setLayoutManager(linearLayoutManager);
-
         return view;
-
     }
 
     class ViewHolder {

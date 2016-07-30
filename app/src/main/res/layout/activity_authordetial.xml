@@ -47,12 +47,13 @@
                         android:text="lalala"
                         android:visibility="visible" />
                 </LinearLayout>
+
                 <TextView
-                    android:text="asd"
-                    android:layout_gravity="center"
+                    android:id="@+id/authordetial_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/authordetial_content"/>
+                    android:layout_gravity="center"
+                    android:text="asd" />
             </LinearLayout>
 
             <LinearLayout
@@ -132,11 +133,12 @@
 
         <ImageView
             android:id="@+id/mine_set"
-            android:layout_width="wrap_content"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
             android:background="@color/colorWhite"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_eye_black_error" />
 
     </RelativeLayout>
 

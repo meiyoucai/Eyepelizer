@@ -21,6 +21,29 @@ import cn.carbs.android.avatarimageview.library.AvatarImageView;
 /**
  * Created by dllo on 16/7/21.
  */
+
+/*
+               _ooOoo_
+               o8888888o
+              88" . "88
+              (| -_- |)
+              O\  =  /O
+           ____/`---'\____
+          .'  \\|     |//  `.
+          /  \\|||  :  |||//  \
+         /  _||||| -:- |||||-  \
+        |   | \\\  -  /// |   |
+        | \_|  ''\---/''  |   |
+        \  .-\__  `-`  ___/-. /
+         ___`. .'  /--.--\  `. . __
+        ."" '<  `.___\_<|>_/___.'  >'"".
+        | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+        \  \ `-.   \_ __\ /__ _/   .-` /  /
+  ======`-.____`-.___\_____/___.-`____.-'======
+ `=---='
+ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+*
+*/
 public class AuthorDetial extends BaseActivity implements OnScrollListener, View.OnClickListener {
 
     private RadioGroup radioGroupLayout;

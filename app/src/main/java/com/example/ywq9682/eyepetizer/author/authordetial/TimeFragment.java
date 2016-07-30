@@ -24,7 +24,8 @@ public class TimeFragment extends BaseFragment {
     private TimeAdapter timeAdapter;
     private String url = "http://baobab.wandoujia.com/api/v3/pgc/videos?pgcId=";
     private String endUrl = "&strategy=date&udid\" +\n" +
-            "\"=cd1ee9c5b44e4f9487a505a4fe31ddcb07441cc8&vc=121&vn=\" + \"2.3.5&deviceModel=MI%205&first_channel=eyepetizer_xiaomi_market&last_channel=eyepetizer_xiaomi_market&system_version_code=23";
+            "\"=cd1ee9c5b44e4f9487a505a4fe31ddcb07441cc8&vc=121&vn=\" + \"2.3.5&dev" +
+            "iceModel=MI%205&first_channel=eyepetizer_xiaomi_market&last_channel=eyepetizer_xiaomi_market&system_version_code=23";
 
     @Override
     public int setLayout() {
@@ -44,7 +45,6 @@ public class TimeFragment extends BaseFragment {
             @Override
             public void onError(Call call, Exception e, int id) {
             }
-
             @Override
             public void onResponse(String response, int id) {
                 Gson gson = new Gson();
@@ -59,11 +59,9 @@ public class TimeFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 Intent intent = new Intent(context, DetialNextActivity.class);
-
                 intent.putExtra("ok", datas.getItemList().get(i).getData().getId());
-                Log.d("TimeFragment", "datas.getItemList().get(i).getData().getId():" + datas.getItemList().get(i).getData().getId());
+               // Log.d("TimeFragment", "datas.getItemList().get(i).getData().getId():" + datas.getItemList().get(i).getData().getId());
                 context.startActivity(intent);
-
 
             }
         });

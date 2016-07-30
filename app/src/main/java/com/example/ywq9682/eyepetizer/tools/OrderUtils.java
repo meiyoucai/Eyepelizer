@@ -21,5 +21,7 @@ public class OrderUtils {
         Random r = new Random();
         key = key + r.nextInt(100000);
         return key;
+        //加入清单文件 里面的一些权限
+
     }
 }

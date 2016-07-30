@@ -32,6 +32,7 @@ public class AllBean {
             "=cd1ee9c5b44e4f9487a505a4fe31ddcb07441cc8&vc=121&vn=" + "2.3.5&deviceModel=MI%205&first_channel=eyepetizer_xiaomi_market&last_channel=eyepetizer_xiaomi_market&system_version_code=23";
     public static final String AUTHOR_DETIAL_ENJOY_URL ="http://baobab.wandoujia.com/api/v3/pgc/videos?pgcId=170&strategy=shareCount&udid=cd1ee9c5b44e4f9487a505a4fe31dd" +
             "cb07441cc8&vc=121&vn=2.3.5&deviceModel=MI%205&first_channel=eyepetizer_xiaomi_market&last_channel=eyepetizer_xiaomi_market&system_version_code=23";
-
+public  static  final  String DISCOVER_SEARCH="http://baobab.wandoujia.com/api/v3/recommend?udid=cd1ee9c5b44e4f9487a505a4fe31ddcb07441cc8&vc=121&vn=2.3.5&device" +
+        "Model=MI%205&first_channel=eyepetizer_xiaomi_market&last_channel=eyepetizer_xiaomi_market&system_version_code=23";
 
 }

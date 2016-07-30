@@ -1,12 +1,14 @@
 package com.example.ywq9682.eyepetizer.author.authordetial.detialnext;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.ywq9682.eyepetizer.R;
 
 /**
@@ -16,6 +18,7 @@ public class DetialNextHeadAdapter extends RecyclerView.Adapter<DetialNextHeadAd
 
 private DetialNextBean detialNextBean;
     private Context context;
+    private  String  time;
 
     public DetialNextHeadAdapter(Context context) {
         this.context = context;
@@ -28,18 +31,17 @@ private DetialNextBean detialNextBean;
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.item_detialnext_headall,parent,false));
+        return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.item_detialnext_recycler,parent,false));
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        holder.content.setText(detialNextBean.getItemList().get(0).getData().getItemList().get(position).getData().getDescription());
+        int duration = detialNextBean.getItemList().get(0).getData().getItemList().get(position).getData().getDuration();
+        time = duration / 60 + " ' " + duration % 60 + " '' ";
+        holder.time.setText(time);
+        Glide.with(context).load(detialNextBean.getItemList().get(0).getData().getItemList().get(position).getData().getCover().getFeed()).into(holder.imageView);
 
-        DetialNextRecyclerAdapter detialNextRecyclerAdapter = new DetialNextRecyclerAdapter(context);
-        detialNextRecyclerAdapter.setDetialNextBean(detialNextBean.getItemList().get(0).getData());
-        holder.recyclerView.setAdapter(detialNextRecyclerAdapter);
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(context);
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        holder.recyclerView.setLayoutManager(linearLayoutManager);
 
 
     }
@@ -50,11 +52,17 @@ private DetialNextBean detialNextBean;
     }
 
     class MyViewHolder extends  RecyclerView.ViewHolder{
-RecyclerView recyclerView;
+        ImageView imageView;
+        TextView content;
+        TextView time;
 
     public MyViewHolder(View itemView) {
         super(itemView);
-        recyclerView= (RecyclerView) itemView.findViewById(R.id.item_detialnext_head_recycler);
+        imageView = (ImageView) itemView.findViewById(R.id.detialnext_recycler_image);
+        content = (TextView) itemView.findViewById(R.id.detialnext_recycler_content);
+        time = (TextView) itemView.findViewById(R.id.detialnext_recycler_time);
+
+
     }
 }
 }

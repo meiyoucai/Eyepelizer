@@ -11,8 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -100,12 +98,9 @@ public class SelectionDetailViewAdapter extends PagerAdapter {
 
         selectionTitle.startAnimation();
         selectionDescription.startAnimation();
-
         AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);
         alphaAnimation.setDuration(2000);
         selectionPlay.startAnimation(alphaAnimation);
-
-
         ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(selectionDetailIv, "scaleX", 1, 1.2f);
         objectAnimator.setRepeatMode(ValueAnimator.REVERSE);
         objectAnimator.setRepeatCount(ValueAnimator.INFINITE);
