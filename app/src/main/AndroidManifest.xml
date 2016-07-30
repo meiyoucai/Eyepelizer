@@ -27,6 +27,7 @@
         <activity android:name=".video.VideoPlayer" />
         <activity android:name=".author.authordetial.AuthorDetial" />
         <activity android:name=".selection.SelectionDetailActivity" />
+        <activity android:name=".selection.SelectionWebActivity" />
     </application>
 
 </manifest>

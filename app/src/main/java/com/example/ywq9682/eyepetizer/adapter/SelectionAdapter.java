@@ -12,28 +12,29 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.ywq9682.eyepetizer.R;
-import com.example.ywq9682.eyepetizer.bean.SelectionListBean;
 import com.example.ywq9682.eyepetizer.bean.SelectionBean;
+import com.example.ywq9682.eyepetizer.bean.SelectionListBean;
 import com.example.ywq9682.eyepetizer.selection.SelectionDetailActivity;
+import com.example.ywq9682.eyepetizer.selection.SelectionWebActivity;
 
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 
 /**
- * Created by dllo on 16/7/20.
+ * Created by dllo on 16/7/19.
  */
 public class SelectionAdapter extends BaseAdapter {
     private SelectionBean selectionBean;
-    private ArrayList<SelectionListBean> selectionListBeen;
+    private ArrayList<SelectionListBean> selectionListBean;
     private Context context;
 
-    private static final int TYPE_COUNT = 2;
+    private static final int TYPE_COUNT = 3;
     private static final int TYPE_VIDEO = 0;
     private static final int TYPE_HEADER = 1;
+    private static final int TYPE_BANNER = 2;
 
     public SelectionAdapter(Context context) {
         this.context = context;
@@ -47,53 +48,58 @@ public class SelectionAdapter extends BaseAdapter {
     public void setSelectionBean(SelectionBean selectionBean) {
         this.selectionBean = selectionBean;
         buildBean();
-
     }
 
     public void buildBean() {
-        selectionListBeen = new ArrayList<>();
+        selectionListBean = new ArrayList<>();
+
         for (int i = 0; i < selectionBean.getIssueList().size(); i++) {
+            int count = selectionBean.getIssueList().get(i).getCount();
             for (int j = 0; j < selectionBean.getIssueList().get(i).getItemList().size(); j++) {
                 String type = selectionBean.getIssueList().get(i).getItemList().get(j).getType();
                 String text = selectionBean.getIssueList().get(i).getItemList().get(j).getData().getText();
                 String title = selectionBean.getIssueList().get(i).getItemList().get(j).getData().getTitle();
                 String category = selectionBean.getIssueList().get(i).getItemList().get(j).getData().getCategory();
                 int duration = selectionBean.getIssueList().get(i).getItemList().get(j).getData().getDuration();
+                String times = duration / 600 + "" + duration % 600 / 60 + "'" + duration % 60 / 10 + "" + duration % 60 % 10 + "''";
                 String description = selectionBean.getIssueList().get(i).getItemList().get(j).getData().getDescription();
                 String playUrl = selectionBean.getIssueList().get(i).getItemList().get(j).getData().getPlayUrl();
+
+                String image = selectionBean.getIssueList().get(i).getItemList().get(j).getData().getImage();
+                int id = selectionBean.getIssueList().get(i).getItemList().get(j).getData().getId();
+
                 try {
                     String imageUrl = selectionBean.getIssueList().get(i)
                             .getItemList().get(j).getData().getCover().getDetail();
                     String blurredUrl = selectionBean.getIssueList().get(i)
                             .getItemList().get(j).getData().getCover().getBlurred();
+
                     int collectionCount = selectionBean.getIssueList().get(i).getItemList().get(j).getData().getConsumption().getCollectionCount();
                     int shareCount = selectionBean.getIssueList().get(i).getItemList().get(j).getData().getConsumption().getShareCount();
                     int replyCount = selectionBean.getIssueList().get(i).getItemList().get(j).getData().getConsumption().getReplyCount();
-                    SelectionListBean bean = new SelectionListBean(type, text, title, category, imageUrl, description, playUrl,
-                            blurredUrl, duration, collectionCount, shareCount, replyCount);
-                    selectionListBeen.add(bean);
+                    SelectionListBean bean = new SelectionListBean(type, text, title, times, category, imageUrl, description, playUrl,
+                            blurredUrl, null, collectionCount, shareCount, replyCount, count, id);
+
+                    selectionListBean.add(bean);
                 } catch (Exception e) {
-                    SelectionListBean bean = new SelectionListBean(type, text, title, category, null, description, playUrl,
-                            null, duration, 0, 0, 0);
-                    selectionListBeen.add(bean);
+                    SelectionListBean bean = new SelectionListBean(type, text, title, times, category, null, description, playUrl,
+                            null, image, 0, 0, 0, count, id);
+                    selectionListBean.add(bean);
 
                 }
             }
         }
-
-
         notifyDataSetChanged();
-
     }
 
     @Override
     public int getCount() {
-        return selectionListBeen == null ? 0 : selectionListBeen.size();
+        return selectionListBean == null ? 0 : selectionListBean.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return selectionListBeen == null ? null : selectionListBeen.get(position);
+        return selectionListBean == null ? null : selectionListBean.get(position);
     }
 
     @Override
@@ -103,12 +109,13 @@ public class SelectionAdapter extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        if ("video".equals(selectionListBeen.get(position).getType())) {
+        if ("video".equals(selectionListBean.get(position).getType())) {
             return TYPE_VIDEO;
-        } else {
+        } else if ("textHeader".equals(selectionListBean.get(position).getType())) {
             return TYPE_HEADER;
+        } else {
+            return TYPE_BANNER;
         }
-
     }
 
     @Override
@@ -120,6 +127,7 @@ public class SelectionAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         VideoViewHolder videoViewHolder = null;
         HeaderViewHolder headerViewHolder = null;
+        BannerViewHolder bannerViewHolder = null;
         int type = getItemViewType(position);
         if (convertView == null) {
             switch (type) {
@@ -133,6 +141,11 @@ public class SelectionAdapter extends BaseAdapter {
                     headerViewHolder = new HeaderViewHolder(convertView);
                     convertView.setTag(headerViewHolder);
                     break;
+                case TYPE_BANNER:
+                    convertView = LayoutInflater.from(context).inflate(R.layout.item_selection_banner, parent, false);
+                    bannerViewHolder = new BannerViewHolder(convertView);
+                    convertView.setTag(bannerViewHolder);
+                    break;
             }
         } else {
             switch (type) {
@@ -142,31 +155,50 @@ public class SelectionAdapter extends BaseAdapter {
                 case TYPE_HEADER:
                     headerViewHolder = (HeaderViewHolder) convertView.getTag();
                     break;
+                case TYPE_BANNER:
+                    bannerViewHolder = (BannerViewHolder) convertView.getTag();
+                    break;
             }
         }
         switch (type) {
             case TYPE_VIDEO:
-                videoViewHolder.titleTv.setText(selectionListBeen.get(position).getTitle());
-                videoViewHolder.categoryTv.setText("#" + selectionListBeen.get(position).getCategory());
-                int times = selectionListBeen.get(position).getDuration();
-                videoViewHolder.timeTv.setText(times / 600 + "" + times % 600 / 60 + "'" + times % 60 / 10 + "" + times % 60 % 10 + "''");
-                Glide.with(context).load(selectionListBeen.get(position).getImageUrl()).into(videoViewHolder.imageView);
+                videoViewHolder.titleTv.setText(selectionListBean.get(position).getTitle());
+                videoViewHolder.categoryTv.setText("#" + selectionListBean.get(position).getCategory());
+                videoViewHolder.timeTv.setText(selectionListBean.get(position).getTime());
+                Glide.with(context).load(selectionListBean.get(position).getImageUrl()).into(videoViewHolder.imageView);
                 videoViewHolder.videoLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        int top = view.getTop();
+                        int heigh = view.getHeight();
+                        int width = view.getWidth();
                         Intent intent = new Intent(context, SelectionDetailActivity.class);
                         Bundle bundle = new Bundle();
-                        bundle.putParcelableArrayList("selectionListBean", selectionListBeen);
+                        bundle.putParcelableArrayList("selectionListBean", selectionListBean);
                         intent.putExtra("position", position);
+                        intent.putExtra("top", top);
+                        intent.putExtra("heigh", heigh);
+                        intent.putExtra("width", width);
                         intent.putExtras(bundle);
                         context.startActivity(intent);
+
                     }
                 });
                 break;
             case TYPE_HEADER:
-                headerViewHolder.headerText.setText(selectionListBeen.get(position).getText());
-//                Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/lobster.ttf");
-//                headerViewHolder.headerText.setTypeface(typeface);
+                headerViewHolder.headerText.setText(selectionListBean.get(position).getText());
+                Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/lobster.ttf");
+                headerViewHolder.headerText.setTypeface(typeface);
+                break;
+            case TYPE_BANNER:
+                Glide.with(context).load(selectionListBean.get(position).getImage()).into(bannerViewHolder.bannerImage);
+                bannerViewHolder.bannerImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(context, SelectionWebActivity.class);
+                        context.startActivity(intent);
+                    }
+                });
                 break;
         }
 
@@ -192,6 +224,14 @@ public class SelectionAdapter extends BaseAdapter {
 
         public HeaderViewHolder(View view) {
             headerText = (TextView) view.findViewById(R.id.text_header);
+        }
+    }
+
+    class BannerViewHolder {
+        private ImageView bannerImage;
+
+        public BannerViewHolder(View view) {
+            bannerImage = (ImageView) view.findViewById(R.id.banner_image);
         }
     }
 }

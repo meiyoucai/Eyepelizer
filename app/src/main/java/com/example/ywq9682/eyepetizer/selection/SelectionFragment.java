@@ -1,5 +1,9 @@
 package com.example.ywq9682.eyepetizer.selection;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ListView;
@@ -23,10 +27,10 @@ import okhttp3.Call;
  * Created by YWQ9682 on 2016/7/18.
  */
 public class SelectionFragment extends BaseFragment {
-    private ListView listView;
     private SelectionAdapter selectionAdapter;
     private SelectionBean selectionBean;
     private PullToRefreshListView pullToRefreshListView;
+    private ItemPositionBroadcast itemPositionBroadcast;
 
 
     @Override
@@ -42,6 +46,10 @@ public class SelectionFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+        itemPositionBroadcast = new ItemPositionBroadcast();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(context.getPackageName() + "selectionListView");
+        context.registerReceiver(itemPositionBroadcast, intentFilter);
         selectionAdapter = new SelectionAdapter(context);
         selectionBean = new SelectionBean();
         OkHttpUtils.get().url(AllBean.SELECTION_URL).build().execute(new StringCallback() {
@@ -110,6 +118,21 @@ public class SelectionFragment extends BaseFragment {
                 pullToRefreshListView.onRefreshComplete();
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        context.unregisterReceiver(itemPositionBroadcast);
+    }
+
+    class ItemPositionBroadcast extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int position = intent.getIntExtra("ItemPosition", 0);
+            pullToRefreshListView.getRefreshableView().setSelection(position);
+        }
     }
 
 }

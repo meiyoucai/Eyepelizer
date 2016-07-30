@@ -1,46 +1,50 @@
 package com.example.ywq9682.eyepetizer.bean;
 
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by dllo on 16/7/19.
- */
 public class SelectionListBean implements Parcelable {
-    private String type, text, title, category, imageUrl, description, playUrl, blurredUrl;
-    private int duration, collectionCount, shareCount, replyCount;
+    private String type, text, title, time, category, imageUrl, description, playUrl, blurredUrl, image;
+    private int collectionCount, shareCount, replyCount, count, id;
 
     public SelectionListBean() {
     }
 
-    public SelectionListBean(String type, String text, String title, String category, String imageUrl, String description, String playUrl, String blurredUrl, int duration, int collectionCount, int shareCount, int replyCount) {
+    public SelectionListBean(String type, String text, String title, String time, String category, String imageUrl, String description, String playUrl, String blurredUrl, String image, int collectionCount, int shareCount, int replyCount, int count, int id) {
         this.type = type;
         this.text = text;
         this.title = title;
+        this.time = time;
         this.category = category;
         this.imageUrl = imageUrl;
         this.description = description;
         this.playUrl = playUrl;
         this.blurredUrl = blurredUrl;
-        this.duration = duration;
+        this.image = image;
         this.collectionCount = collectionCount;
         this.shareCount = shareCount;
         this.replyCount = replyCount;
+        this.count = count;
+        this.id = id;
     }
 
     protected SelectionListBean(Parcel in) {
         type = in.readString();
         text = in.readString();
         title = in.readString();
+        time = in.readString();
         category = in.readString();
         imageUrl = in.readString();
         description = in.readString();
         playUrl = in.readString();
         blurredUrl = in.readString();
-        duration = in.readInt();
+        image = in.readString();
         collectionCount = in.readInt();
         shareCount = in.readInt();
         replyCount = in.readInt();
+        count = in.readInt();
+        id = in.readInt();
     }
 
     public static final Creator<SelectionListBean> CREATOR = new Creator<SelectionListBean>() {
@@ -77,6 +81,14 @@ public class SelectionListBean implements Parcelable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getCategory() {
@@ -119,12 +131,12 @@ public class SelectionListBean implements Parcelable {
         this.blurredUrl = blurredUrl;
     }
 
-    public int getDuration() {
-        return duration;
+    public String getImage() {
+        return image;
     }
 
-    public void setDuration(int duration) {
-        this.duration = duration;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public int getCollectionCount() {
@@ -151,6 +163,22 @@ public class SelectionListBean implements Parcelable {
         this.replyCount = replyCount;
     }
 
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -161,14 +189,17 @@ public class SelectionListBean implements Parcelable {
         parcel.writeString(type);
         parcel.writeString(text);
         parcel.writeString(title);
+        parcel.writeString(time);
         parcel.writeString(category);
         parcel.writeString(imageUrl);
         parcel.writeString(description);
         parcel.writeString(playUrl);
         parcel.writeString(blurredUrl);
-        parcel.writeInt(duration);
+        parcel.writeString(image);
         parcel.writeInt(collectionCount);
         parcel.writeInt(shareCount);
         parcel.writeInt(replyCount);
+        parcel.writeInt(count);
+        parcel.writeInt(id);
     }
 }
