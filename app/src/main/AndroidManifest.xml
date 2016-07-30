@@ -44,7 +44,6 @@
         <activity android:name=".main.MainActivity" />
         <activity android:name=".author.authordetial.AuthorDetial" />
         <activity android:name=".selection.SelectionDetailActivity" />
-<<<<<<< HEAD
         <activity android:name=".author.authordetial.detialnext.DetialNextActivity" />
         <!-- 付钱拉 SDK -->
 
@@ -102,9 +101,9 @@
             android:name=".video.DownloadService"
             android:enabled="true"
             android:exported="true"/>
-=======
+
         <activity android:name=".selection.SelectionWebActivity" />
->>>>>>> ae042ec5be2a3f86c3f97a23c5be8d142e3adef6
+
     </application>
 
 </manifest>
