@@ -130,7 +130,6 @@ public class FlyTextView extends ViewGroup {
     // default animation
     private void setDefaultAnimation() {
         Animation animation = new AlphaAnimation(0.0f, 0.0f);
-//        animation.setStartTime(2000);
         animation.setDuration(80);
         animation.setFillAfter(true);
         animationSet.addAnimation(animation);

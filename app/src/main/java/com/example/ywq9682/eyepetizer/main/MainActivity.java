@@ -4,6 +4,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.View;
 
 import com.example.ywq9682.eyepetizer.R;
 import com.example.ywq9682.eyepetizer.adapter.MainVpAdapter;
@@ -27,6 +29,7 @@ public class MainActivity extends BaseActivity {
     private TabLayout tabLayout;
     private ArrayList<Fragment> fragments;
     private MainVpAdapter adapter;
+
     @Override
     public int setLayout() {
         return R.layout.activity_main;
@@ -45,6 +48,17 @@ public class MainActivity extends BaseActivity {
         adapter.setFragments(fragments);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setSelectedTabIndicatorHeight(0);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        initTabIction();
+    }
+
+    private void initTabIction() {
+        int[] selectors = {R.drawable.tab_selector_selection, R.drawable.tab_selector_discover,
+                R.drawable.tab_selector_author, R.drawable.tab_selector_my};
+        for (int i = 0; i < selectors.length; i++) {
+            tabLayout.getTabAt(i).setIcon(selectors[i]);
+        }
     }
 
     @Override
