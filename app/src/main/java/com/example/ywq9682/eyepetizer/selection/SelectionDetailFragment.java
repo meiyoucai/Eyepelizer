@@ -26,7 +26,7 @@ import com.example.ywq9682.eyepetizer.adapter.SelectionDetailViewAdapter;
 import com.example.ywq9682.eyepetizer.author.authordetial.AuthorDetial;
 import com.example.ywq9682.eyepetizer.base.BaseFragment;
 import com.example.ywq9682.eyepetizer.bean.SelectionListBean;
-import com.example.ywq9682.eyepetizer.video.VideoPlayer;
+import com.example.ywq9682.eyepetizer.video.VideoPlayerActivity;
 
 import java.util.ArrayList;
 
@@ -188,7 +188,7 @@ public class SelectionDetailFragment extends BaseFragment implements View.OnTouc
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.selection_play:
-                Intent intentVideo = new Intent(context, VideoPlayer.class);
+                Intent intentVideo = new Intent(context, VideoPlayerActivity.class);
                 intentVideo.putExtra("urlS", selectionListBean.get(position).getPlayUrl());
                 intentVideo.putExtra("title", selectionListBean.get(position).getTitle());
                 startActivity(intentVideo);
