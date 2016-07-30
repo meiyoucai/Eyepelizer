@@ -237,16 +237,10 @@ public class MediaController extends FrameLayout implements SeekBar.OnSeekBarCha
                 startY = event.getRawY();
                 startX = event.getRawX();
                 middle = Math.max(height, width) / 2;
-
-                Log.d("ssdf", "middle:" + middle);
-                Log.d("ssdf", "startX:" + startX);
                 toucheRang = (int) Math.min(height, width);
-                Log.d("sss", "toucheRang:" + toucheRang);
                 if (startX > middle) {
-                    Log.d("sss", "startY:" + startY);
                     //获取当前的音量
                     mVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-                    Log.d("sssm", "mVolume:" + mVolume);
                 }
                 break;
             case MotionEvent.ACTION_MOVE://手指在屏幕移动的时候回调这个方法
@@ -254,16 +248,13 @@ public class MediaController extends FrameLayout implements SeekBar.OnSeekBarCha
                     float endY = event.getRawY();
                     //计算偏移
                     float distanceY = startY - endY;
-                    Log.d("sss", "distanceY:" + distanceY);
                 if (startX > middle) {
                     //改变的音量 = 最大声音 * (滑动距离 / 滑动的最大区域)
                     int delta = (int) ((distanceY / toucheRang) * maxVolum);
-                    Log.d("sssd", "delta:" + delta);
                     if (delta != 0) {
                         //具体的音量 = 当前的音量 + 改变的音量
 //                    int volumuAdd = Math.min(Math.max(mVolume + delta, 0), maxVolum);
                         volumuAdd = Math.min(mVolume + delta, maxVolum);
-                        Log.d("sss", "volumu:" + volumuAdd);
                         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volumuAdd, AudioManager.ADJUST_RAISE);
                     }
 //                if (delta < 0) {
@@ -273,7 +264,6 @@ public class MediaController extends FrameLayout implements SeekBar.OnSeekBarCha
 //                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volumuReduction, AudioManager.ADJUST_LOWER);
 //                }
                 }else {
-                    Log.d("ddff", "distanceY/ toucheRang:" + (distanceY / toucheRang));
                     if(brightness == null){
                         brightness = (Brightness) getContext();
                     }
@@ -284,7 +274,6 @@ public class MediaController extends FrameLayout implements SeekBar.OnSeekBarCha
 
                 break;
         }
-
         return true;
     }
 

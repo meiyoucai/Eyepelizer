@@ -18,7 +18,7 @@ import com.example.ywq9682.eyepetizer.allinterface.BriefOnClickListener;
 import com.example.ywq9682.eyepetizer.allinterface.DataRecyInterface;
 import com.example.ywq9682.eyepetizer.allinterface.VideoBriefOnClickListener;
 import com.example.ywq9682.eyepetizer.bean.AuthorBean;
-import com.example.ywq9682.eyepetizer.video.VideoPlayer;
+import com.example.ywq9682.eyepetizer.video.VideoPlayerActivity;
 
 /**
  * Created by YWQ9682 on 2016/7/18.
@@ -124,7 +124,7 @@ public class AuthorRecyAdapter extends RecyclerView.Adapter {
                 authorDataRecyAdapter.setDataRecyInterface(new DataRecyInterface() {
                     @Override
                     public void DataRecyOnClick(int pos) {
-                        Intent intent = new Intent(context, VideoPlayer.class);
+                        Intent intent = new Intent(context, VideoPlayerActivity.class);
                         intent.putExtra("url", author.getItemList().get(position).getData()
                                 .getItemList().get(pos).getData().getPlayUrl());
                         context.startActivity(intent);

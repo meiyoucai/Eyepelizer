@@ -11,8 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,7 +18,7 @@ import com.bumptech.glide.Glide;
 import com.example.ywq9682.eyepetizer.R;
 import com.example.ywq9682.eyepetizer.bean.SelectionListBean;
 import com.example.ywq9682.eyepetizer.selection.FlyTextView;
-import com.example.ywq9682.eyepetizer.video.VideoPlayer;
+import com.example.ywq9682.eyepetizer.video.VideoPlayerActivity;
 
 import java.util.ArrayList;
 
@@ -73,7 +71,7 @@ public class SelectionDetailViewAdapter extends PagerAdapter {
         selectionPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =new Intent(context, VideoPlayer.class);
+                Intent intent =new Intent(context, VideoPlayerActivity.class);
                 intent.putExtra("urlS",selectionListBean.get(positions).getPlayUrl());
                 intent.putExtra("title",selectionListBean.get(positions).getTitle());
                 Log.d("ssdd", selectionListBean.get(positions).getPlayUrl());

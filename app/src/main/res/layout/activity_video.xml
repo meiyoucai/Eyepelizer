@@ -21,6 +21,16 @@
             android:id="@+id/video_player_item_1"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
+
+
     </FrameLayout>
+    <Button
+        android:layout_marginTop="10dp"
+        android:id="@+id/btn_download"
+        android:padding="10dp"
+        android:background="#4780ea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="缓存" />
 </LinearLayout>
