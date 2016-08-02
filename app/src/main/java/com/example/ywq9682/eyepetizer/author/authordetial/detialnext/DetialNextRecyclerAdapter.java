@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.ywq9682.eyepetizer.R;
+import com.example.ywq9682.eyepetizer.base.Utils;
 
 /**
  * Created by dllo on 16/7/26.
@@ -41,6 +42,10 @@ public class DetialNextRecyclerAdapter extends RecyclerView.Adapter<DetialNextRe
         time = duration / 60 + " ' " + duration % 60 + " '' ";
         holder.time.setText(time);
         Glide.with(context).load(detialNextBean.getItemList().get(position).getData().getCover().getFeed()).into(holder.imageView);
+        ViewGroup.LayoutParams layoutParams=holder.imageView.getLayoutParams();
+        layoutParams.width= (int) (Utils.getScreenWidth(context)*0.46f);
+        layoutParams.height= (int) (Utils.getScreenHeight(context)*0.17f);
+        holder.imageView.setLayoutParams(layoutParams);
 
     }
 

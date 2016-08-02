@@ -24,7 +24,8 @@ public class TimeFragment extends BaseFragment {
     private String url;
     private String headUrl = "http://baobab.wandoujia.com/api/v3/videos?categoryId=";
     private String endUrl = "&strategy=date&udid=cd1ee9c5b44e4f9487a505a4fe31ddc\" +\n" +
-            "            \"b07441cc8&vc=121&vn=2.3.5&deviceModel=MI%205&first_channel=eyepetizer_xiaomi_market&last_channel=eyepetizer_xiaomi_market&system_version_code=23";
+            "            \"b07441cc8&vc=121&vn=2.3.5&deviceModel=MI%205&first_channel=eyepet" +
+            "izer_xiaomi_market&last_channel=eyepetizer_xiaomi_market&system_version_code=23";
 
     @Override
     public int setLayout() {
@@ -36,7 +37,6 @@ public class TimeFragment extends BaseFragment {
         discoverGridviewBean = new DiscoverGridviewBean();
         timeAdapter = new TimeAdapter(context);
         listView = (ListView) view.findViewById(R.id.fragment_week_listview);
-
         Intent intent = getActivity().getIntent();
         int id = intent.getIntExtra("gridviewId", 0);
         Log.d("TimeFragment", "id:" + id);
@@ -54,12 +54,10 @@ public class TimeFragment extends BaseFragment {
                 Gson gson = new Gson();
                 discoverGridviewBean = gson.fromJson(response, DiscoverGridviewBean.class);
                 Log.d("TimeFragment", "discoverGridviewBean.getCount():" + discoverGridviewBean.getCount());
-
                 timeAdapter.setDiscoverGridviewBean(discoverGridviewBean);
                 listView.setAdapter(timeAdapter);
             }
         });
-
 
 
     }

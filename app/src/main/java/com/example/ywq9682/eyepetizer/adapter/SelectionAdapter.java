@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import com.example.ywq9682.eyepetizer.bean.SelectionBean;
 import com.example.ywq9682.eyepetizer.bean.SelectionListBean;
 import com.example.ywq9682.eyepetizer.selection.SelectionDetailActivity;
 import com.example.ywq9682.eyepetizer.selection.SelectionWebActivity;
-
 
 import java.util.ArrayList;
 
@@ -187,8 +185,8 @@ public class SelectionAdapter extends BaseAdapter {
                 break;
             case TYPE_HEADER:
                 headerViewHolder.headerText.setText(selectionListBean.get(position).getText());
-                Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/lobster.ttf");
-                headerViewHolder.headerText.setTypeface(typeface);
+                Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/Lobster.ttf");
+               headerViewHolder.headerText.setTypeface(typeface);
                 break;
             case TYPE_BANNER:
                 Glide.with(context).load(selectionListBean.get(position).getImage()).into(bannerViewHolder.bannerImage);

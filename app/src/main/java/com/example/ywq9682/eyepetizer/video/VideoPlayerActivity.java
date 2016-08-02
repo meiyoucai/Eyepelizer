@@ -6,18 +6,12 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.os.Bundle;
-import android.os.Environment;
 import android.os.IBinder;
 import android.provider.Settings;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.SeekBar;
-import android.widget.TextView;
 
 import com.android.tedcoder.wkvideoplayer.dlna.engine.DLNAContainer;
 import com.android.tedcoder.wkvideoplayer.dlna.service.DLNAService;
@@ -29,15 +23,8 @@ import com.android.tedcoder.wkvideoplayer.view.MediaController;
 import com.android.tedcoder.wkvideoplayer.view.SuperVideoPlayer;
 import com.example.ywq9682.eyepetizer.R;
 import com.example.ywq9682.eyepetizer.base.BaseActivity;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.FileCallBack;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-
-import okhttp3.Call;
-import okhttp3.Request;
 
 /**
  * Created by YWQ9682 on 2016/7/25.
@@ -51,13 +38,10 @@ public class VideoPlayerActivity extends BaseActivity implements Brightness, Vie
     private MediaController mediaController;
     private Button btnDownLoad;
     private ServiceConnection connection;
-
-
     @Override
     public int setLayout() {
         return R.layout.activity_video;
     }
-
     @Override
     public void initView() {
         mSuperVideoPlayer = (SuperVideoPlayer) findViewById(R.id.video_player_item_1);
@@ -73,15 +57,12 @@ public class VideoPlayerActivity extends BaseActivity implements Brightness, Vie
             public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
                 DownloadService.MyBind myBind = (DownloadService.MyBind) iBinder;
             }
-
             @Override
             public void onServiceDisconnected(ComponentName componentName) {
-
             }
         };
         startDLNAService();
     }
-
     @Override
     public void initData() {
         Intent intent = getIntent();
@@ -120,7 +101,6 @@ public class VideoPlayerActivity extends BaseActivity implements Brightness, Vie
 
         }
     };
-
     public void playerVideo() {
         mPlayBtnView.setVisibility(View.GONE);
         mSuperVideoPlayer.setVisibility(View.VISIBLE);
@@ -129,7 +109,6 @@ public class VideoPlayerActivity extends BaseActivity implements Brightness, Vie
         VideoUrl videoUrl1 = new VideoUrl();
         videoUrl1.setFormatName("720P");
         videoUrl1.setFormatUrl(urlS);
-
         VideoUrl videoUrl2 = new VideoUrl();
         videoUrl2.setFormatName("480P");
         videoUrl2.setFormatUrl(urlS);
@@ -142,13 +121,11 @@ public class VideoPlayerActivity extends BaseActivity implements Brightness, Vie
         videoArrayList.add(video);
         mSuperVideoPlayer.loadMultipleVideo(videoArrayList, 0, 0, 0);
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         stopDLNAService();
     }
-
     /***
      * 旋转屏幕之后回调
      *
@@ -182,8 +159,6 @@ public class VideoPlayerActivity extends BaseActivity implements Brightness, Vie
             mSuperVideoPlayer.getLayoutParams().width = (int) width;
         }
     }
-
-
     /***
      * 恢复屏幕至竖屏
      */
@@ -193,14 +168,12 @@ public class VideoPlayerActivity extends BaseActivity implements Brightness, Vie
             mSuperVideoPlayer.setPageType(MediaController.PageType.SHRINK);
         }
     }
-
     private void startDLNAService() {
         // Clear the device container.
         DLNAContainer.getInstance().clear();
         Intent intent = new Intent(getApplicationContext(), DLNAService.class);
         startService(intent);
     }
-
     private void stopDLNAService() {
         Intent intent = new Intent(getApplicationContext(), DLNAService.class);
         stopService(intent);
@@ -214,7 +187,6 @@ public class VideoPlayerActivity extends BaseActivity implements Brightness, Vie
             fanalBright = 0;
         }
         setBrightness(this, fanalBright);
-
     }
 
     /**
@@ -246,10 +218,6 @@ public class VideoPlayerActivity extends BaseActivity implements Brightness, Vie
         lp.screenBrightness = Float.valueOf(brightness) * (1f / 255f);
         activity.getWindow().setAttributes(lp);
     }
-
-
-
-
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(this, DownloadService.class);

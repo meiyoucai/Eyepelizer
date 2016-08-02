@@ -8,7 +8,6 @@
         android:id="@+id/item_detialnext_head_image"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@mipmap/ic_launcher"
         app:aiv_BoarderWidth="2dp"
         app:aiv_ShowBoarder="false"
         app:aiv_TextSizeRatio="0.4" />
@@ -20,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/item_detialnext_head_image"
-        android:text="sadsad" />
+      />
 
     <TextView
         android:id="@+id/item_detialnext_head_content"
@@ -29,12 +28,7 @@
         android:layout_below="@id/item_detialnext_head_title"
         android:layout_marginTop="20dp"
         android:layout_toRightOf="@id/item_detialnext_head_image"
-        android:text="asdsad" />
+      />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@id/item_detialnext_head_content"
-        android:layout_marginTop="3dp"
-        android:background="#ff0000" />
+
 </RelativeLayout>

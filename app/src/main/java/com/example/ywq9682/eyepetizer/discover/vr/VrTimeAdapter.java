@@ -1,4 +1,4 @@
-package com.example.ywq9682.eyepetizer.discover.gridview;
+package com.example.ywq9682.eyepetizer.discover.vr;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,22 +14,22 @@ import com.squareup.picasso.Picasso;
 /**
  * Created by dllo on 16/7/30.
  */
-public class TimeAdapter extends BaseAdapter {
-    private  DiscoverGridviewBean  discoverGridviewBean;
+public class VrTimeAdapter extends BaseAdapter {
+    private VrBean vrBean;
     private Context context;
     private String time;
 
-    public TimeAdapter(Context context) {
+    public VrTimeAdapter(Context context) {
         this.context = context;
     }
 
-    public void setDiscoverGridviewBean(DiscoverGridviewBean discoverGridviewBean) {
-        this.discoverGridviewBean = discoverGridviewBean;
+    public void setVrBean(VrBean vrBean) {
+        this.vrBean = vrBean;
     }
 
     @Override
     public int getCount() {
-        return discoverGridviewBean == null ? 0 : discoverGridviewBean.getItemList().size();
+        return vrBean == null ? 0 : vrBean.getItemList().size();
     }
 
     @Override
@@ -53,14 +53,14 @@ public class TimeAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
-        Picasso.with(context).load(discoverGridviewBean.getItemList().get(i).getData().getCover().getFeed()).into(viewHolder.imageView);
-        viewHolder.textViewRecord.setText(discoverGridviewBean.getItemList().get(i).getData().getCategory());
+        Picasso.with(context).load(vrBean.getItemList().get(i).getData().getCover().getFeed()).into(viewHolder.imageView);
+        viewHolder.textViewRecord.setText(vrBean.getItemList().get(i).getData().getCategory());
 
-        int duration = discoverGridviewBean.getItemList().get(i).getData().getDuration();
+        int duration = vrBean.getItemList().get(i).getData().getDuration();
         time = duration / 60 + " ' " + duration % 60 + " '' ";
         viewHolder.textViewTime.setText(time);
         //viewHolder.textViewTitle.setText(weekBean.getItemList().get(i).getData().getName());
-        viewHolder.textviewContent.setText(discoverGridviewBean.getItemList().get(i).getData().getTitle());
+        viewHolder.textviewContent.setText(vrBean.getItemList().get(i).getData().getTitle());
         return view;
     }
 

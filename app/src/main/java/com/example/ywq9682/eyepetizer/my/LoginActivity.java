@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.ywq9682.eyepetizer.R;
@@ -31,14 +34,18 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private Button register, registerTwo;
     private EditText password, userName, passwordRegister;
     private FButton login;
+    private ImageView loginLinearlayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         login = (FButton) findViewById(R.id.login);
+        loginLinearlayout = (ImageView) findViewById(R.id.linearlayout_login);
         register = (Button) findViewById(R.id.register);
         password = (EditText) findViewById(R.id.password);
+
+        showScaleAnim();
         registerTwo = (Button) findViewById(R.id.register_two);
         userName = (EditText) findViewById(R.id.username);
         login.setButtonColor(getResources().getColor(R.color.fbutton_color_concrete));
@@ -50,6 +57,17 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         login.setOnClickListener(this);
         register.setOnClickListener(this);
         registerTwo.setOnClickListener(this);
+    }
+
+    private void showScaleAnim() {
+
+        ScaleAnimation scaleAnimation = new ScaleAnimation(1, 1.2f, 1, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        scaleAnimation.setRepeatCount(1000909);
+        scaleAnimation.setDuration(6000);
+        loginLinearlayout.startAnimation(scaleAnimation);
+        scaleAnimation.setRepeatMode(Animation.INFINITE);
+        scaleAnimation.setRepeatMode(Animation.REVERSE);
+
     }
 
     @Override
@@ -120,6 +138,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
                         // SingleLiteOrm.getSingleLiteOrm().getLiteOrm().insert(users);
                     }
+
                     @Override
                     public void onError(int i, String s) {
                     }

@@ -48,7 +48,7 @@ private DetialNextBean detialNextBean;
 
     @Override
     public int getItemCount() {
-        return 1;
+        return detialNextBean.getItemList().size();
     }
 
     class MyViewHolder extends  RecyclerView.ViewHolder{

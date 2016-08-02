@@ -1,57 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fbutton="http://schemas.android.com/apk/res-auto"
+
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-
-    <EditText
-        android:id="@+id/username"
+    <ImageView
+        android:id="@+id/linearlayout_login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="账户" />
+        android:layout_height="match_parent"
+        android:background="@mipmap/ssssaa" />
 
-
-    <EditText
-        android:id="@+id/password"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="密码" />
+        android:layout_height="match_parent"
 
-    <EditText
-        android:id="@+id/password_two"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="验证码"
-        android:visibility="gone" />
+        android:gravity="center"
+        android:orientation="vertical"
+        android:weightSum="1">
 
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="密码"
 
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:textColorHint="@color/colorWhite" />
 
-    <info.hoang8f.widget.FButton
-        android:id="@+id/login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        fbutton:buttonColor="@color/fbutton_color_silver"
-        fbutton:cornerRadius="5dp"
-        fbutton:shadowColor="@color/fbutton_color_asbestos"
-        fbutton:shadowEnabled="true"
-        android:text="登录"
-        fbutton:shadowHeight="5dp" />
-
-    <Button
-        android:id="@+id/register_two"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="注册"
-        android:visibility="gone" />
-
-    <Button
-        android:id="@+id/register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="注册一下" />
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="账户"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorWhite" />
 
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/password_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="验证码"
+            android:visibility="gone" />
+
+
+        <info.hoang8f.widget.FButton
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="登录"
+            fbutton:buttonColor="@color/fbutton_color_green_sea"
+            fbutton:cornerRadius="5dp"
+            fbutton:shadowColor="@color/fbutton_color_asbestos"
+            fbutton:shadowEnabled="true"
+            fbutton:shadowHeight="5dp" />
+
+        <Button
+            android:id="@+id/register_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="注册"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="注册一下" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

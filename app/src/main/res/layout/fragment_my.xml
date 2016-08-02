@@ -81,9 +81,9 @@
                 android:src="@mipmap/ic_action_compact_favourite_normal" />
 
             <TextView
-                android:id="@+id/tv_download"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/my_collect"
                 android:text="我的收藏" />
         </LinearLayout>
 

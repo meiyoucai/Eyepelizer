@@ -23,6 +23,8 @@ public class Util {
     public static void showLog(String name, String contest){
         Log.d(name, contest);
     }
+
+
 }
 
 

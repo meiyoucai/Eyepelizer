@@ -29,6 +29,10 @@
             android:src="@mipmap/abc_ic_ab_back_holo_light" />
     </RelativeLayout>
 
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/my_collect_listview"></ListView>
 
 
 </LinearLayout>

@@ -6,9 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.ywq9682.eyepetizer.R;
+import com.example.ywq9682.eyepetizer.base.Utils;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -56,12 +58,17 @@ public class WeekAdapter extends BaseAdapter {
         }
         Picasso.with(context).load(weekBean.getItemList().get(i).getData().getCover().getFeed()).into(viewHolder.imageView);
         viewHolder.textViewRecord.setText(weekBean.getItemList().get(i).getData().getCategory());
-
         int duration = weekBean.getItemList().get(i).getData().getDuration();
         time = duration / 60 + " ' " + duration % 60 + " '' ";
         viewHolder.textViewTime.setText(time);
         //viewHolder.textViewTitle.setText(weekBean.getItemList().get(i).getData().getName());
         viewHolder.textviewContent.setText(weekBean.getItemList().get(i).getData().getTitle());
+      //  viewHolder.relativeLayout.setLayoutParams(new ViewGroup.LayoutParams(Utils.getScreenWidth(context), (int) (Utils.getScreenHeight(context)*0.1f)));
+      ViewGroup.LayoutParams  layoutParams=viewHolder.relativeLayout.getLayoutParams();
+        layoutParams.width= Utils.getScreenWidth(context);
+        layoutParams.height= (int) (Utils.getScreenHeight(context)*0.45f);
+        viewHolder.relativeLayout.setLayoutParams(layoutParams);
+
         return view;
     }
 
@@ -71,13 +78,14 @@ public class WeekAdapter extends BaseAdapter {
         TextView textviewContent;
         TextView textViewTime;
         TextView textViewRecord;
-
+        RelativeLayout relativeLayout;
 
         public ViewHolder(View view) {
             textviewContent = (TextView) view.findViewById(R.id.author_time_tv);
             imageView = (ImageView) view.findViewById(R.id.author_time_image);
             textViewTime = (TextView) view.findViewById(R.id.author_time_time);
             textViewRecord = (TextView) view.findViewById(R.id.author_time_record);
+            relativeLayout = (RelativeLayout) view.findViewById(R.id.time_relative);
 
 
         }

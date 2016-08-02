@@ -16,6 +16,8 @@ import com.example.ywq9682.eyepetizer.discover.banner.BannerSearchActivity;
 import com.example.ywq9682.eyepetizer.discover.banner.BannerWeb;
 import com.example.ywq9682.eyepetizer.discover.gridview.GridviewActivity;
 import com.example.ywq9682.eyepetizer.discover.top.TopActivity;
+import com.example.ywq9682.eyepetizer.discover.topic.TopicActivity;
+import com.example.ywq9682.eyepetizer.discover.vr.VrActivity;
 import com.google.gson.Gson;
 import com.youth.banner.Banner;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -66,16 +68,7 @@ public class DiscoverFragment extends BaseFragment {
 
             }
         });
-//        headerGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Toast.makeText(context, "i:" + i, Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(context, GridviewActivity.class);
-//                intent.putExtra("gridviewId", discoverBean.getItemList().get(i + 4).getData().getId());
-//                Log.d("DiscoverFragment", "discoverBean.getItemList().get(i).getData().getId():" + discoverBean.getItemList().get(i).getData().getId());
-//                context.startActivity(intent);
-//            }
-//        });
+
         discoverAdapter.setClickPicture(new DiscoverAdapter.ClickPicture() {
             @Override
             public void onClick(int position) {
@@ -89,6 +82,10 @@ public class DiscoverFragment extends BaseFragment {
 
     private void initBanner() {
         view2 = LayoutInflater.from(context).inflate(R.layout.item_banner, null);
+//        ViewGroup.LayoutParams layoutParams = view2.getLayoutParams();
+//        layoutParams.height = Utils.getScreenHeight(context);
+//        layoutParams.width = (int) (Utils.getScreenWidth(context) * 0.5f);
+//        view2.setLayoutParams(layoutParams);
         banner = (Banner) view2.findViewById(R.id.banner);
         banner.setBannerStyle(Banner.CIRCLE_INDICATOR);//加点
         banner.setIndicatorGravity(Banner.CENTER);//点在中间
@@ -103,9 +100,11 @@ public class DiscoverFragment extends BaseFragment {
                 Gson gson = new Gson();
                 discoverBean = gson.fromJson(response, DiscoverBean.class);
                 imageUrls = new String[discoverBean.getItemList().get(0).getData().getItemList().size()];
+
                 for (int i = 0; i < discoverBean.getItemList().get(0).getData().getItemList().size(); i++) {
                     imageUrls[i] = discoverBean.getItemList().get(0).getData().getItemList().get(i).getData().getImage();
                 }
+
                 banner.setImages(imageUrls);
                 banner.setDelayTime(3000);
             }
@@ -151,7 +150,8 @@ public class DiscoverFragment extends BaseFragment {
         imageTOPIC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(context, TopicActivity.class);
+                context.startActivity(intent);
             }
         });
 
@@ -159,8 +159,10 @@ public class DiscoverFragment extends BaseFragment {
         imageVR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(context, VrActivity.class);
+                context.startActivity(intent);
 
-                Toast.makeText(context, "它就是一个listview里面放入item,拼接就可以了", Toast.LENGTH_SHORT).show();
+
             }
         });
         headerGridView.addHeaderView(view1);

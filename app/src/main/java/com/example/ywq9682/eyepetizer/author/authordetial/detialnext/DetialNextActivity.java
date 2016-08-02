@@ -62,7 +62,6 @@ public class DetialNextActivity extends BaseActivity {
             }
         });
     }
-
     private void initHead() {
         View view = LayoutInflater.from(this).inflate(R.layout.item_detialnext_headall, null);
         final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.item_detialnext_head_recycler);
@@ -71,7 +70,6 @@ public class DetialNextActivity extends BaseActivity {
             @Override
             public void onError(Call call, Exception e, int id) {
             }
-
             @Override
             public void onResponse(String response, int id) {
                 Gson gson = new Gson();
@@ -79,10 +77,9 @@ public class DetialNextActivity extends BaseActivity {
                 //Log.d("lanou", "detialNextBean.getItemList().get(0).getData().getHeader().getId():" + detialNextBean.getItemList().get(0).getData().getHeader().getId());
                 detialNextHeadAdapter.setDetialNextBean(detialNextBean);
                 recyclerView.setAdapter(detialNextHeadAdapter);
-                LinearLayoutManager   linearLayoutManager=new LinearLayoutManager(DetialNextActivity.this);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(DetialNextActivity.this);
                 linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
                 recyclerView.setLayoutManager(linearLayoutManager);
-
             }
         });
         view2 = LayoutInflater.from(this).inflate(R.layout.item_detialnext_head_title, null);

@@ -11,8 +11,8 @@ import cn.bmob.v3.BmobUser;
  * Created by dllo on 16/7/21.
  */
 public class Users extends BmobUser {
-    private byte[] photo;
 
+    private byte[] photo;
     public Bitmap getImagePhoto() {
         if (photo == null) {
             return null;
