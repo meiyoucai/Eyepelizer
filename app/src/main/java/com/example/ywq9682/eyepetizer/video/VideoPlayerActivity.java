@@ -226,5 +226,6 @@ public class VideoPlayerActivity extends BaseActivity implements Brightness, Vie
         intent.putExtra("title", title);
         startService(intent);
         Util.showLog("sss0","ddddd");
+        
     }
 }
