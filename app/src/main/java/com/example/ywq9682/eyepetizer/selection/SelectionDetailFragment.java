@@ -4,16 +4,13 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -25,6 +22,7 @@ import com.example.ywq9682.eyepetizer.R;
 import com.example.ywq9682.eyepetizer.adapter.SelectionDetailViewAdapter;
 import com.example.ywq9682.eyepetizer.author.authordetial.AuthorDetial;
 import com.example.ywq9682.eyepetizer.base.BaseFragment;
+import com.example.ywq9682.eyepetizer.base.SingleLiteOrm;
 import com.example.ywq9682.eyepetizer.bean.SelectionListBean;
 import com.example.ywq9682.eyepetizer.video.VideoPlayerActivity;
 
@@ -46,6 +44,7 @@ public class SelectionDetailFragment extends BaseFragment implements View.OnTouc
     private LinearLayout selectionFavorites, selectionShare, selectionReply, selectionCache;
     private float mStartX;
     private int mCurrentPostion;
+    private CheckBox checkBox;
     private int position;
 
     public static SelectionDetailFragment getInstance(int pos) {
@@ -61,7 +60,6 @@ public class SelectionDetailFragment extends BaseFragment implements View.OnTouc
         return R.layout.fragment_selection_detail;
     }
 
-
     @Override
     public void initView(View view) {
         viewPager = (ViewPager) view.findViewById(R.id.view_pager);
@@ -76,6 +74,37 @@ public class SelectionDetailFragment extends BaseFragment implements View.OnTouc
         selectionDuration = (TextView) view.findViewById(R.id.selection_duration);
         selectionDescription = (FlyTextView) view.findViewById(R.id.selection_description);
         selectionCollectionCountTv = (TextView) view.findViewById(R.id.selection_collection_count);
+        checkBox = (CheckBox) view.findViewById(R.id.check_selection);
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (checkBox.isChecked()) {
+                    Toast.makeText(context, "已收藏", Toast.LENGTH_SHORT).show();
+                    CollectBean collectBean = new CollectBean();
+                    collectBean.setTitleTv(selectionListBean.get(position).getTitle());
+                    collectBean.setTimeTv(selectionListBean.get(position).getTime());
+                    collectBean.setCategoryTv(selectionListBean.get(position).getCategory());
+                    collectBean.setImageView(selectionListBean.get(position).getImageUrl());
+                    Log.d("SelectionDetailFragment", "collectBean:" + collectBean);
+                    SingleLiteOrm.getSingleLiteOrm().insertSingle(collectBean);
+
+
+                } else {
+
+                    Toast.makeText(context, "取消收藏", Toast.LENGTH_SHORT).show();
+//                    SingleLiteOrm.getSingleLiteOrm().getLiteOrm().
+//                            delete(new WhereBuilder(CollectBean.class).
+//                                    where("titleTv" + " = ?", new String[]{selectionListBean.get(position).getTitle()}));
+                    SingleLiteOrm.getSingleLiteOrm().delectSingleCondition(CollectBean.class, "titleTv", selectionListBean.get(position).getTitle());
+
+
+                }
+
+
+            }
+        });
+
         selectionShareCountTv = (TextView) view.findViewById(R.id.selection_share_count);
         selectionReplyCountTv = (TextView) view.findViewById(R.id.selection_reply_count);
         selectionFavorites = (LinearLayout) view.findViewById(R.id.selection_favorites);
@@ -87,6 +116,7 @@ public class SelectionDetailFragment extends BaseFragment implements View.OnTouc
 
     @Override
     protected void initData() {
+
         Intent intent = getActivity().getIntent();
         position = intent.getIntExtra("position", 0);
         selectionDetailViewAdapter = new SelectionDetailViewAdapter(getContext());
@@ -120,9 +150,11 @@ public class SelectionDetailFragment extends BaseFragment implements View.OnTouc
         selectionCategory.setText(selectionListBean.get(position).getCategory());
         selectionDuration.setText(selectionListBean.get(position).getTime());
         selectionDescription.setTexts(selectionListBean.get(position).getDescription());
+
         selectionCollectionCountTv.setText(String.valueOf(selectionListBean.get(position).getCollectionCount()));
         selectionShareCountTv.setText(String.valueOf(selectionListBean.get(position).getShareCount()));
         selectionReplyCountTv.setText(String.valueOf(selectionListBean.get(position).getReplyCount()));
+
 
         selectionTitle.startAnimation();
         selectionDescription.startAnimation();
@@ -131,6 +163,12 @@ public class SelectionDetailFragment extends BaseFragment implements View.OnTouc
         selectionPlay.startAnimation(alphaAnimation);
         selectionBlurredIv.startAnimation(alphaAnimation);
 
+        for (CollectBean collectBean : SingleLiteOrm.getSingleLiteOrm().quaryAllSingle(CollectBean.class)) {
+            if (collectBean.getTitleTv().equals(selectionListBean.get(position).getTitle()))
+                checkBox.setChecked(true);
+
+
+        }
     }
 
     @Override
@@ -187,6 +225,8 @@ public class SelectionDetailFragment extends BaseFragment implements View.OnTouc
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+
+
             case R.id.selection_play:
                 Intent intentVideo = new Intent(context, VideoPlayerActivity.class);
                 intentVideo.putExtra("urlS", selectionListBean.get(position).getPlayUrl());
@@ -194,17 +234,18 @@ public class SelectionDetailFragment extends BaseFragment implements View.OnTouc
                 startActivity(intentVideo);
                 break;
             case R.id.selection_detail_return:
-                Intent intentList=new Intent(context.getPackageName()+"selectionListView");
-                intentList.putExtra("itemPosition",position);
+                Intent intentList = new Intent(context.getPackageName() + "selectionListView");
+                intentList.putExtra("itemPosition", position);
                 context.sendBroadcast(intentList);
                 getActivity().finish();
                 break;
             case R.id.selection_more:
-                Intent intent=new Intent(context, AuthorDetial.class);
-                intent.putExtra("bcId",selectionListBean.get(position).getId());
+                Intent intent = new Intent(context, AuthorDetial.class);
+                intent.putExtra("bcId", selectionListBean.get(position).getId());
                 break;
             case R.id.selection_favorites:
                 Toast.makeText(context, "已加入收藏夹", Toast.LENGTH_SHORT).show();
+
                 break;
             case R.id.selection_share:
                 break;
@@ -215,4 +256,6 @@ public class SelectionDetailFragment extends BaseFragment implements View.OnTouc
         }
 
     }
+
+
 }

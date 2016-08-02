@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.example.ywq9682.eyepetizer.R;
 import com.example.ywq9682.eyepetizer.base.BaseFragment;
 import com.example.ywq9682.eyepetizer.main.MyApp;
+import com.example.ywq9682.eyepetizer.my.collect.CollectActivity;
 import com.example.ywq9682.eyepetizer.tools.Merchant;
 import com.example.ywq9682.eyepetizer.tools.OrderUtils;
 import com.example.ywq9682.eyepetizer.welcome.Users;
@@ -50,10 +51,11 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     private ImageView headImage, headImageTrue;
     private PopupWindow popupWindow;
     private ImageView mMap;
-    private TextView theme;
+    private TextView theme, collectTv;
     private TextView returnTv, pay;
     Users users;
     BmobUser bmobUser;
+
     private BroadCast broadCast;
     private static final String IMAGE_UNSPECIFIED = "image/*";
     private BroadCasst broadCasst;
@@ -69,12 +71,13 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         return R.layout.fragment_my;
     }
 
+
     @Override
     public void initView(View view) {
+
         broadCast = new BroadCast();
         broadCasst = new BroadCasst();
         breadCast = new BreadCast();
-
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.example.ywq9682.eyepetizer.ILK");
         intentFilter.addAction("com.example.ywq9682.eyepetizer.ILKL");
@@ -86,21 +89,25 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         theme = (TextView) view.findViewById(R.id.buqiyan);
         headImage = (ImageView) view.findViewById(R.id.head_image);
         mMap = (ImageView) view.findViewById(R.id.map);
+        collectTv = (TextView) view.findViewById(R.id.my_collect);
+        collectTv.setOnClickListener(this);
         pay = (TextView) view.findViewById(R.id.my_pay);
         pay.setOnClickListener(this);
         returnTv = (TextView) view.findViewById(R.id.return_login);
         headImageTrue = (ImageView) view.findViewById(R.id.head_image_true);
         headImage.setOnClickListener(this);
         mMap.setOnClickListener(this);
+        theme.setOnClickListener(this);
         headImageTrue.setOnClickListener(this);
         returnTv.setOnClickListener(this);
+        mygetName();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         users = BmobUser.getCurrentUser(context, Users.class);
-        Log.d("lolojj", "users:" + users);
+        // Log.d("lolojj", "users:" + users);
         if (users != null) {
             headImageTrue.setVisibility(View.VISIBLE);
             headImage.setVisibility(View.GONE);
@@ -123,6 +130,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 }
             });
         }
+
     }
 
     @Override
@@ -165,18 +173,21 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                     // EventBus.getDefault().post(eventBus);
                     // 把图片显示在ImageView控件上
                     //                设置数据保存到bmob
-                    Users users = BmobUser.getCurrentUser(context, Users.class);
+                    users = BmobUser.getCurrentUser(context, Users.class);
                     //  collect = BmobUser.getCurrentUser(this, Collect.class);
+
                     Matrix matrix = new Matrix();
                     matrix.setScale(0.5f, 0.5f);
                     photo = Bitmap.createBitmap(photo, 0, 0, photo.getWidth(), photo.getHeight(), matrix, false);
                     users.setImagePhoto(photo);
+                    Log.d("MyFragment", "users:" + users);
                     Log.d("MyFragment", "photo:" + photo);
 //                  SingleLiteOrm.getSingleLiteOrm().getLiteOrm().insert(users);
                     users.update(context, new UpdateListener() {
                         @Override
                         public void onSuccess() {
-//                            Log.d(TAG, "成功");
+//
+                            Toast.makeText(context, "成功", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
@@ -242,6 +253,12 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 Intent intent = new Intent(context, LoginActivity.class);
                 context.startActivity(intent);
                 break;
+            case R.id.my_collect:
+
+                Intent intent1 = new Intent(context, CollectActivity.class);
+                context.startActivity(intent1);
+
+                break;
             case R.id.head_image_true:
 
                 if (popupWindow != null || !popupWindow.isShowing()) {
@@ -271,7 +288,17 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.buqiyan:
 
-                Toast.makeText(context, "lalala", Toast.LENGTH_SHORT).show();
+
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+
+                View view2 = LayoutInflater.from(context).inflate(R.layout.qq_login_popwindow, null);
+                ImageView imageViewQQ = (ImageView) view2.findViewById(R.id.qq_image);
+                imageViewQQ.setOnClickListener(this);
+                builder1.setView(view2);
+                builder1.show();
+                break;
+            case R.id.qq_image:
+
 
                 break;
             case R.id.my_pay:
@@ -346,7 +373,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        Toast.makeText(context, "杨文庆", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "取消退出", Toast.LENGTH_SHORT).show();
+                        popupWindow.dismiss();
                     }
                 }).show();
 
@@ -354,6 +382,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
 
             case R.id.cancel:
                 Toast.makeText(context, "取消", Toast.LENGTH_SHORT).show();
+                popupWindow.dismiss();
                 break;
             case R.id.change_headimage:
                 Intent intent3 = new Intent(Intent.ACTION_PICK, null);

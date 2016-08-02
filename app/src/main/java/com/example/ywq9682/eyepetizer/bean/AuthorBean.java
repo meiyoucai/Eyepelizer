@@ -74,6 +74,12 @@ public class AuthorBean {
         this.itemList = itemList;
     }
 
+
+
+
+
+
+
     public static class ItemListBean {
         private String type;
         /**

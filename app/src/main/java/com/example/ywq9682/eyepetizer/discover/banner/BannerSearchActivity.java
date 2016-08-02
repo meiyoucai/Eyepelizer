@@ -31,7 +31,8 @@ public class BannerSearchActivity extends AppCompatActivity {
      */
     private CardContainer mCardContainer;
     private String url = "http://baobab.wandoujia.com/api/v3/recommend?udid=cd1ee9c5b44e4f9487a505a4fe31d" +
-            "dcb07441cc8&vc=121&vn=2.3.5&deviceModel=MI%205&first_channel=eyepetizer_xiaomi_market&last_channel=eyepetizer_xiaomi_market&system_version_code=23";
+            "dcb07441cc8&vc=121&vn=2.3.5&deviceModel=MI%205&first_channel=eyepetizer_xiaomi_market&last_ch" +
+            "annel=eyepetizer_xiaomi_market&system_version_code=23";
     private CardModel cardModel;
     private SimpleCardStackAdapter adapter;
     private boolean flag = true;

@@ -1,10 +1,13 @@
 package com.example.ywq9682.eyepetizer.author.authordetial;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.ywq9682.eyepetizer.R;
 import com.example.ywq9682.eyepetizer.author.authordetial.detialnext.DetialNextActivity;
@@ -62,12 +65,17 @@ public class TimeFragment extends BaseFragment {
                 intent.putExtra("ok", datas.getItemList().get(i).getData().getId());
                // Log.d("TimeFragment", "datas.getItemList().get(i).getData().getId():" + datas.getItemList().get(i).getData().getId());
                 context.startActivity(intent);
-
             }
         });
 
-    }
 
+        View  view1= LayoutInflater.from(context).inflate(R.layout.listview_footview,null);
+
+        TextView endTv= (TextView) view1.findViewById(R.id.end_listview);
+        Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/Lobster.ttf");
+        endTv.setTypeface(typeface);
+        listview.addFooterView(view1);
+    }
     @Override
     protected void initData() {
     }

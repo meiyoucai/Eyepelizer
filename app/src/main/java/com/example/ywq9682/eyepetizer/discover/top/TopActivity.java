@@ -38,6 +38,7 @@ public class TopActivity extends BaseActivity {
         topAdapter.setFragments(fragments);
         viewPager.setAdapter(topAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setSelectedTabIndicatorHeight(0);
     }
 
     @Override
