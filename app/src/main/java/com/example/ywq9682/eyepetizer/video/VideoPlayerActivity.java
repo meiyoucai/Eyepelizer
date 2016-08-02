@@ -254,6 +254,7 @@ public class VideoPlayerActivity extends BaseActivity implements Brightness, Vie
     public void onClick(View view) {
         Intent intent = new Intent(this, DownloadService.class);
         intent.putExtra("urlS", urlS);
+        Log.d("ywq66a", title);
         intent.putExtra("title", title);
         startService(intent);
         Util.showLog("sss0","ddddd");

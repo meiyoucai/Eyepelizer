@@ -52,7 +52,7 @@
         <activity android:name=".discover.gridview.GridviewActivity" />
         <activity android:name=".author.authordetial.detialnext.DetialNextActivity" />
         <!-- 付钱拉 SDK -->
-
+<activity android:name=".video.DownloadActivity"/>
         <activity
             android:name="com.fuqianla.paysdk.app.FuQianLaActivity"
             android:screenOrientation="portrait"

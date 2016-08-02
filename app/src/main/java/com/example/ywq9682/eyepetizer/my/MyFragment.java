@@ -29,8 +29,11 @@ import com.example.ywq9682.eyepetizer.base.BaseFragment;
 import com.example.ywq9682.eyepetizer.main.MyApp;
 import com.example.ywq9682.eyepetizer.tools.Merchant;
 import com.example.ywq9682.eyepetizer.tools.OrderUtils;
+import com.example.ywq9682.eyepetizer.video.DownloadActivity;
 import com.example.ywq9682.eyepetizer.welcome.Users;
 import com.fuqianla.paysdk.FuQianLaPay;
+
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -58,6 +61,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     private static final String IMAGE_UNSPECIFIED = "image/*";
     private BroadCasst broadCasst;
     private BreadCast breadCast;
+    private TextView tvDownload;
     private static final String TAG = "MyActivity";
     private static final int ALBUM_REQUEST_CODE = 1;
     private static final int CAMERA_REQUEST_CODE = 2;
@@ -71,6 +75,14 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void initView(View view) {
+        tvDownload = (TextView) view.findViewById(R.id.my_cache);
+        tvDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, DownloadActivity.class);
+                startActivity(intent);
+            }
+        });
         broadCast = new BroadCast();
         broadCasst = new BroadCasst();
         breadCast = new BreadCast();
