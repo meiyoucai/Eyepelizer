@@ -7,7 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 
+import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,12 +34,6 @@ import java.util.ArrayList;
  * Created by dllo on 16/7/21.
  */
 public class SelectionDetailViewAdapter extends PagerAdapter {
-
-    private int pos;
-
-    public void setPos(int pos) {
-        this.pos = pos;
-    }
     private Context context;
     private ArrayList<SelectionListBean> selectionListBean;
 
@@ -50,10 +46,14 @@ public class SelectionDetailViewAdapter extends PagerAdapter {
         notifyDataSetChanged();
     }
 
-
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return view == object;
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return super.getItemPosition(object);
     }
 
     public Object instantiateItem(ViewGroup container, int position) {
@@ -72,14 +72,13 @@ public class SelectionDetailViewAdapter extends PagerAdapter {
         objectAnimator.start();
 
         container.addView(view);
-
         return view;
+
     }
 
     @Override
     public int getCount() {
-
-        return Integer.MAX_VALUE;
+        return selectionListBean.size();
     }
 
     @Override
@@ -88,5 +87,4 @@ public class SelectionDetailViewAdapter extends PagerAdapter {
             container.removeViewAt(position);
         }
     }
-
 }

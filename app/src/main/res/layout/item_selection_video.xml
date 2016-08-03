@@ -6,12 +6,18 @@
     android:layout_height="wrap_content"
     tools:context="com.example.dllo.myapplication.MainActivity">
 
+
     <ImageView
         android:id="@+id/video_icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:src="@drawable/selection_shape"/>
+        android:scaleType="fitXY"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/selection_shape"
+        android:alpha="0.3"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -27,7 +33,6 @@
             android:textColor="#ffffff"
             android:textSize="15sp"
             android:textStyle="bold" />
-
 
         <LinearLayout
             android:layout_width="wrap_content"

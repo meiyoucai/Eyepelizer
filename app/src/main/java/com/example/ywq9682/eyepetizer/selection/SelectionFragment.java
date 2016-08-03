@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.ywq9682.eyepetizer.R;
 import com.example.ywq9682.eyepetizer.adapter.DiscoverAdapter;
@@ -15,11 +16,14 @@ import com.example.ywq9682.eyepetizer.base.BaseFragment;
 import com.example.ywq9682.eyepetizer.bean.AllBean;
 import com.example.ywq9682.eyepetizer.bean.DiscoverBean;
 import com.example.ywq9682.eyepetizer.bean.SelectionBean;
+import com.example.ywq9682.eyepetizer.bean.SelectionListBean;
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.greenrobot.eventbus.EventBus;
 
 import okhttp3.Call;
 
@@ -31,6 +35,7 @@ public class SelectionFragment extends BaseFragment {
     private SelectionBean selectionBean;
     private PullToRefreshListView pullToRefreshListView;
     private ItemPositionBroadcast itemPositionBroadcast;
+    private RefreshBroadcast refreshBroadcast;
 
 
     @Override
@@ -48,8 +53,14 @@ public class SelectionFragment extends BaseFragment {
     protected void initData() {
         itemPositionBroadcast = new ItemPositionBroadcast();
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(context.getPackageName()+"selectionListView");
+        intentFilter.addAction(context.getPackageName() + "selectionListView");
         context.registerReceiver(itemPositionBroadcast, intentFilter);
+
+        refreshBroadcast = new RefreshBroadcast();
+        IntentFilter intentRefresh = new IntentFilter();
+        intentRefresh.addAction(context.getPackageName() + "selectionRefresh");
+        context.registerReceiver(refreshBroadcast, intentRefresh);
+
         selectionAdapter = new SelectionAdapter(context);
         selectionBean = new SelectionBean();
         OkHttpUtils.get().url(AllBean.SELECTION_URL).build().execute(new StringCallback() {
@@ -124,6 +135,7 @@ public class SelectionFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         context.unregisterReceiver(itemPositionBroadcast);
+        context.unregisterReceiver(refreshBroadcast);
     }
 
     class ItemPositionBroadcast extends BroadcastReceiver {
@@ -132,6 +144,15 @@ public class SelectionFragment extends BaseFragment {
         public void onReceive(Context context, Intent intent) {
             int position = intent.getIntExtra("itemPosition", 0);
             pullToRefreshListView.getRefreshableView().setSelection(position);
+        }
+    }
+
+    class RefreshBroadcast extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            loading();
+
         }
     }
 
