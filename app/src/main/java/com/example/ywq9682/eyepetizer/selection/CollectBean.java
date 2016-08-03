@@ -4,7 +4,11 @@ import com.litesuits.orm.db.annotation.PrimaryKey;
 import com.litesuits.orm.db.enums.AssignType;
 
 /**
+<<<<<<< HEAD
  * Created by dllo on 16/8/1.
+=======
+ * Created by dllo on 16/8/3.
+>>>>>>> dc63cf35508c492d1977eb048a6118c675930b48
  */
 public class CollectBean {
     private String titleTv;
@@ -47,3 +51,4 @@ public class CollectBean {
         this.timeTv = timeTv;
     }
 }
+

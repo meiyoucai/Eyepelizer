@@ -74,9 +74,9 @@ public class VideoPlayerActivity extends BaseActivity implements Brightness, Vie
         Log.d("ssd", urlF + " ");
         Log.d("ssd", urlS + " ");
         Log.d("ssd", title + " ");
-        mSuperVideoPlayer.loadLocalVideo(Environment.getExternalStorageDirectory()
-                + File.separator + "kaiyan/video/" + "当建筑空间可以繁衍生长.mp4");
-//        playerVideo();
+//        mSuperVideoPlayer.loadLocalVideo(Environment.getExternalStorageDirectory()
+//                + File.separator + "kaiyan/video/" + "当建筑空间可以繁衍生长.mp4");
+        playerVideo();
     }
 
 

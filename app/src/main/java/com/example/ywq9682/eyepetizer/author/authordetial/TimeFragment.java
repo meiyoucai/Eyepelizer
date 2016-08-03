@@ -72,7 +72,7 @@ public class TimeFragment extends BaseFragment {
         View  view1= LayoutInflater.from(context).inflate(R.layout.listview_footview,null);
 
         TextView endTv= (TextView) view1.findViewById(R.id.end_listview);
-        Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/Lobster.ttf");
+        Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/lobster.ttf");
         endTv.setTypeface(typeface);
         listview.addFooterView(view1);
     }

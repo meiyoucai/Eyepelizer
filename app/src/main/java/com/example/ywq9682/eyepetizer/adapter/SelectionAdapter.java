@@ -11,14 +11,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.example.ywq9682.eyepetizer.R;
 import com.example.ywq9682.eyepetizer.bean.SelectionBean;
 import com.example.ywq9682.eyepetizer.bean.SelectionListBean;
 import com.example.ywq9682.eyepetizer.selection.SelectionDetailActivity;
 import com.example.ywq9682.eyepetizer.selection.SelectionWebActivity;
-
+import com.example.ywq9682.eyepetizer.tools.Window;
+import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 
 /**
@@ -34,6 +34,7 @@ public class SelectionAdapter extends BaseAdapter {
     private static final int TYPE_HEADER = 1;
     private static final int TYPE_BANNER = 2;
 
+
     public SelectionAdapter(Context context) {
         this.context = context;
     }
@@ -41,16 +42,17 @@ public class SelectionAdapter extends BaseAdapter {
     public void addSelectionBean(SelectionBean selectionBean) {
         this.selectionBean.getIssueList().addAll(selectionBean.getIssueList());
         buildBean();
+        notifyDataSetChanged();
     }
 
     public void setSelectionBean(SelectionBean selectionBean) {
         this.selectionBean = selectionBean;
         buildBean();
+        notifyDataSetChanged();
     }
 
     public void buildBean() {
         selectionListBean = new ArrayList<>();
-
         for (int i = 0; i < selectionBean.getIssueList().size(); i++) {
             int count = selectionBean.getIssueList().get(i).getCount();
             for (int j = 0; j < selectionBean.getIssueList().get(i).getItemList().size(); j++) {
@@ -79,6 +81,7 @@ public class SelectionAdapter extends BaseAdapter {
                             blurredUrl, null, collectionCount, shareCount, replyCount, count, id);
 
                     selectionListBean.add(bean);
+
                 } catch (Exception e) {
                     SelectionListBean bean = new SelectionListBean(type, text, title, times, category, null, description, playUrl,
                             null, image, 0, 0, 0, count, id);
@@ -88,6 +91,7 @@ public class SelectionAdapter extends BaseAdapter {
             }
         }
         notifyDataSetChanged();
+        EventBus.getDefault().post(selectionListBean);
     }
 
     @Override
@@ -167,16 +171,15 @@ public class SelectionAdapter extends BaseAdapter {
                 videoViewHolder.videoLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        int top = view.getTop();
-                        int heigh = view.getHeight();
-                        int width = view.getWidth();
+                        if (selectionListBean.size() == position + 1) {
+                            Intent intentRefresh = new Intent(context.getPackageName() + "selectionRefresh");
+                            context.sendBroadcast(intentRefresh);
+                        }
+
                         Intent intent = new Intent(context, SelectionDetailActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putParcelableArrayList("selectionListBean", selectionListBean);
                         intent.putExtra("position", position);
-                        intent.putExtra("top", top);
-                        intent.putExtra("heigh", heigh);
-                        intent.putExtra("width", width);
                         intent.putExtras(bundle);
                         context.startActivity(intent);
 
@@ -185,8 +188,9 @@ public class SelectionAdapter extends BaseAdapter {
                 break;
             case TYPE_HEADER:
                 headerViewHolder.headerText.setText(selectionListBean.get(position).getText());
-                Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/Lobster.ttf");
+                Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/lobster.ttf");
                headerViewHolder.headerText.setTypeface(typeface);
+                headerViewHolder.headerText.setTypeface(typeface);
                 break;
             case TYPE_BANNER:
                 Glide.with(context).load(selectionListBean.get(position).getImage()).into(bannerViewHolder.bannerImage);
@@ -214,6 +218,7 @@ public class SelectionAdapter extends BaseAdapter {
             imageView = (ImageView) view.findViewById(R.id.video_icon);
             timeTv = (TextView) view.findViewById(R.id.video_time);
             videoLayout = (RelativeLayout) view.findViewById(R.id.video_layout);
+            videoLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (Window.getDisplayHeight(context) * 0.4f)));
         }
     }
 
