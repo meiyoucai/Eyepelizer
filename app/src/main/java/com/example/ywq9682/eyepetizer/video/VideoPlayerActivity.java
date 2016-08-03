@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.os.Environment;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
@@ -24,6 +25,7 @@ import com.android.tedcoder.wkvideoplayer.view.SuperVideoPlayer;
 import com.example.ywq9682.eyepetizer.R;
 import com.example.ywq9682.eyepetizer.base.BaseActivity;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -72,7 +74,9 @@ public class VideoPlayerActivity extends BaseActivity implements Brightness, Vie
         Log.d("ssd", urlF + " ");
         Log.d("ssd", urlS + " ");
         Log.d("ssd", title + " ");
-        playerVideo();
+        mSuperVideoPlayer.loadLocalVideo(Environment.getExternalStorageDirectory()
+                + File.separator + "kaiyan/video/" + "当建筑空间可以繁衍生长.mp4");
+//        playerVideo();
     }
 
 
@@ -226,6 +230,6 @@ public class VideoPlayerActivity extends BaseActivity implements Brightness, Vie
         intent.putExtra("title", title);
         startService(intent);
         Util.showLog("sss0","ddddd");
-        
+
     }
 }

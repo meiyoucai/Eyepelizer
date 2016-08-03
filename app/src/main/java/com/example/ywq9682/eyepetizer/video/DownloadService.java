@@ -37,7 +37,6 @@ public class DownloadService extends Service {
         if (urlS != null) {
             Util.showToast(this, "开始下载, 请在缓存目录中查看");
             Util.showLog("TAGGG", urlS);
-
             Log.d("ywq66v", title);
             OkHttpUtils//
                     .get()//
@@ -45,6 +44,7 @@ public class DownloadService extends Service {
                     .build()//
                     .execute(new FileCallBack(Environment.getExternalStorageDirectory()
                             + File.separator + "kaiyan/video/", title + ".mp4") {
+
                         @Override
                         public void inProgress(float progress, long total, int id) {
                             super.inProgress(progress, total, id);
