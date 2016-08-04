@@ -26,7 +26,7 @@ public class DetialNextActivity extends BaseActivity {
     private ListView listView;
     private DetialNextAdapter detialNextAdapter;
     private DetialNextBean detialNextBean;
-    View view, view2;
+    View viewHead, viewRcy;
     private String headUrl = "http://baobab.wandoujia.com/api/v3/video/";
     private String url;
     private String endUrl = "/detail/related?udid=cd1ee9c5b44e4f9487a505a4fe31ddcb07441cc8&vc\n" +
@@ -62,14 +62,17 @@ public class DetialNextActivity extends BaseActivity {
             }
         });
     }
+
     private void initHead() {
-        View view = LayoutInflater.from(this).inflate(R.layout.item_detialnext_headall, null);
-        final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.item_detialnext_head_recycler);
+        //中间
+        View viewRcy = LayoutInflater.from(this).inflate(R.layout.item_detialnext_headall, null);
+        final RecyclerView recyclerView = (RecyclerView) viewRcy.findViewById(R.id.item_detialnext_head_recycler);
         final DetialNextHeadAdapter detialNextHeadAdapter = new DetialNextHeadAdapter(this);
         OkHttpUtils.get().url(url).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
             }
+
             @Override
             public void onResponse(String response, int id) {
                 Gson gson = new Gson();
@@ -82,15 +85,27 @@ public class DetialNextActivity extends BaseActivity {
                 recyclerView.setLayoutManager(linearLayoutManager);
             }
         });
-        view2 = LayoutInflater.from(this).inflate(R.layout.item_detialnext_head_title, null);
-        final ImageView imageView = (ImageView) view2.findViewById(R.id.item_detialnext_head_image);
-        final TextView title = (TextView) view2.findViewById(R.id.item_detialnext_head_title);
-        final TextView content = (TextView) view2.findViewById(R.id.item_detialnext_head_content);
-        title.setText(detialNextBean.getItemList().get(0).getData().getHeader().getTitle());
-        content.setText(detialNextBean.getItemList().get(0).getData().getHeader().getDescription());
-        Glide.with(DetialNextActivity.this).load(detialNextBean.getItemList().get(0).getData().getHeader().getIcon()).into(imageView);
-        listView.addHeaderView(view2);
-        listView.addHeaderView(view);
+        //头
+        viewHead = LayoutInflater.from(this).inflate(R.layout.item_detialnext_head_title, null);
+        final ImageView imageView = (ImageView) viewHead.findViewById(R.id.item_detialnext_head_image);
+        final TextView title = (TextView) viewHead.findViewById(R.id.item_detialnext_head_title);
+        final TextView content = (TextView) viewHead.findViewById(R.id.item_detialnext_head_content);
+        title.setText(detialNextBean.getItemList().get(0).getData().getTitle());
+        //  Log.d("DetialNextActivity", detialNextBean.getItemList().get(0).getData().getTitle());
+        content.setText(detialNextBean.getItemList().get(0).getData().getDescription());
+        Glide.with(DetialNextActivity.this).load(detialNextBean.getItemList().get(0).getData().getIcon()).into(imageView);
+        if (detialNextBean.getItemList().get(0).getData().getHeader() == null){
+            listView.addHeaderView(viewHead);
+        }
+        else if (detialNextBean.getItemList().get(0).getData().getHeader()!= null) {
+           title.setText(detialNextBean.getItemList().get(0).getData().getTitle());
+           content.setText(detialNextBean.getItemList().get(0).getData().getDescription());
+            Glide.with(DetialNextActivity.this).load(detialNextBean.getItemList().get(0).getData().getIcon()).into(imageView);
+            listView.addHeaderView(viewHead);
+            listView.addHeaderView(viewRcy);
+        }
+
+
     }
 
     @Override

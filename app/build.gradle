@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.ywq9682.eyepetizer"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -55,5 +55,8 @@ dependencies {
     compile project(':AndTinder')
     compile 'org.greenrobot:eventbus:3.0.0'
 
-    
+
+    compile files('libs/open_sdk_r5756.jar')
+    compile files('libs/mta-sdk-1.6.2.jar')
+    compile project(':deckview')
 }

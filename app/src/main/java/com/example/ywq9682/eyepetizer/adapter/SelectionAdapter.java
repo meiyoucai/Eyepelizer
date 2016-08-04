@@ -68,19 +68,16 @@ public class SelectionAdapter extends BaseAdapter {
 
                 String image = selectionBean.getIssueList().get(i).getItemList().get(j).getData().getImage();
                 int id = selectionBean.getIssueList().get(i).getItemList().get(j).getData().getId();
-
                 try {
                     String imageUrl = selectionBean.getIssueList().get(i)
                             .getItemList().get(j).getData().getCover().getDetail();
                     String blurredUrl = selectionBean.getIssueList().get(i)
                             .getItemList().get(j).getData().getCover().getBlurred();
-
                     int collectionCount = selectionBean.getIssueList().get(i).getItemList().get(j).getData().getConsumption().getCollectionCount();
                     int shareCount = selectionBean.getIssueList().get(i).getItemList().get(j).getData().getConsumption().getShareCount();
                     int replyCount = selectionBean.getIssueList().get(i).getItemList().get(j).getData().getConsumption().getReplyCount();
                     SelectionListBean bean = new SelectionListBean(type, text, title, times, category, imageUrl, description, playUrl,
                             blurredUrl, null, collectionCount, shareCount, replyCount, count, id);
-
                     selectionListBean.add(bean);
 
                 } catch (Exception e) {
@@ -172,15 +169,26 @@ public class SelectionAdapter extends BaseAdapter {
                 videoViewHolder.videoLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
                         if (selectionListBean.size() == position + 1) {
                             Intent intentRefresh = new Intent(context.getPackageName() + "selectionRefresh");
                             context.sendBroadcast(intentRefresh);
                         }
 
+
+//                        int top = view.getTop();
+//                        int heigh = view.getHeight();
+//                        int width = view.getWidth();
+
                         Intent intent = new Intent(context, SelectionDetailActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putParcelableArrayList("selectionListBean", selectionListBean);
                         intent.putExtra("position", position);
+
+//                        intent.putExtra("top", top);
+//                        intent.putExtra("heigh", heigh);
+//                        intent.putExtra("width", width);
+
                         intent.putExtras(bundle);
                         context.startActivity(intent);
 
@@ -189,9 +197,10 @@ public class SelectionAdapter extends BaseAdapter {
                 break;
             case TYPE_HEADER:
                 headerViewHolder.headerText.setText(selectionListBean.get(position).getText());
+
                 Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/lobster.ttf");
                headerViewHolder.headerText.setTypeface(typeface);
-                headerViewHolder.headerText.setTypeface(typeface);
+
                 break;
             case TYPE_BANNER:
                 Glide.with(context).load(selectionListBean.get(position).getImage()).into(bannerViewHolder.bannerImage);

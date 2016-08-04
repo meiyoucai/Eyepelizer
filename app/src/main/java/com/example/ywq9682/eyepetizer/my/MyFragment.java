@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,14 @@ import com.example.ywq9682.eyepetizer.tools.OrderUtils;
 import com.example.ywq9682.eyepetizer.video.DownloadActivity;
 import com.example.ywq9682.eyepetizer.welcome.Users;
 import com.fuqianla.paysdk.FuQianLaPay;
+import com.tencent.connect.UserInfo;
+import com.tencent.connect.auth.QQToken;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
+import com.tencent.tauth.UiError;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import org.w3c.dom.Text;
 
@@ -54,11 +63,17 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     private ImageView headImage, headImageTrue;
     private PopupWindow popupWindow;
     private ImageView mMap;
+    private BaseUiListener baseUiListener;
     private TextView theme, collectTv;
     private TextView returnTv, pay;
     Users users;
+    private Tencent mTencent;
+    private String openid, access_token, expires_in;
+    private String mAppid = "1105586944";
     BmobUser bmobUser;
-
+    private  TextView  textViewName;
+    private ImageView editTextName;
+    private RelativeLayout nameRecy;
     private BroadCast broadCast;
     private static final String IMAGE_UNSPECIFIED = "image/*";
     private BroadCasst broadCasst;
@@ -99,13 +114,18 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         context.registerReceiver(broadCasst, intentFilter);
         context.registerReceiver(broadCast, intentFilter);
         popupWindow = new PopupWindow();
+        mTencent = Tencent.createInstance(mAppid, context);
         theme = (TextView) view.findViewById(R.id.buqiyan);
         headImage = (ImageView) view.findViewById(R.id.head_image);
         mMap = (ImageView) view.findViewById(R.id.map);
+        nameRecy= (RelativeLayout) view.findViewById(R.id.fragment_relayopt);
         collectTv = (TextView) view.findViewById(R.id.my_collect);
         collectTv.setOnClickListener(this);
         pay = (TextView) view.findViewById(R.id.my_pay);
         pay.setOnClickListener(this);
+        editTextName = (ImageView) view.findViewById(R.id.herad_name_editext);
+      textViewName= (TextView) view.findViewById(R.id.herad_name);
+       // textViewName.setOnClickListener(this);
         returnTv = (TextView) view.findViewById(R.id.return_login);
         headImageTrue = (ImageView) view.findViewById(R.id.head_image_true);
         headImage.setOnClickListener(this);
@@ -151,9 +171,11 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
 
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Tencent.onActivityResultData(requestCode, resultCode, data, baseUiListener);
         switch (requestCode) {
             case ALBUM_REQUEST_CODE:
                 Log.i(TAG, "相册，开始裁剪");
@@ -259,6 +281,54 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         startActivityForResult(intent, CROP_REQUEST_CODE);
     }
 
+    private class BaseUiListener implements IUiListener {
+        @Override
+        public void onComplete(Object o) {
+            try {
+                openid = ((JSONObject) o).getString("openid");
+                Log.d("222222", openid);
+                access_token = ((JSONObject) o).getString("access_token");
+                Log.d("222222", access_token);
+                expires_in = ((JSONObject) o).getString("expires_in");
+                Log.d("222222", expires_in);
+                mTencent.setOpenId(openid);
+                mTencent.setAccessToken(access_token, expires_in);
+                QQToken qqToken = mTencent.getQQToken();
+                UserInfo userInfo = new UserInfo(context, qqToken);
+                userInfo.getUserInfo(new IUiListener() {
+                    @Override
+                    public void onComplete(Object o) {
+                        Log.d("BaseUiListener", "o:" + o);
+                    }
+
+                    @Override
+                    public void onError(UiError uiError) {
+
+                    }
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+                });
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onError(UiError uiError) {
+
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+
+    }
+
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -272,6 +342,19 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 context.startActivity(intent1);
 
                 break;
+            case R.id.herad_name:
+
+                nameRecy.setVisibility(View.VISIBLE);
+                textViewName.setVisibility(View.GONE);
+
+
+                break;
+            case R.id.herad_name_editext:
+                textViewName.setVisibility(View.VISIBLE);
+                nameRecy.setVisibility(View.GONE);
+
+                break;
+
             case R.id.head_image_true:
 
                 if (popupWindow != null || !popupWindow.isShowing()) {
@@ -313,7 +396,12 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
             case R.id.qq_image:
 
 
+                baseUiListener = new BaseUiListener();
+                mTencent.login(MyFragment.this, "all", baseUiListener);
+
+
                 break;
+
             case R.id.my_pay:
 //我们在这里继承了支付宝的功能添加了FUQIANLA 的 jar包 在添加一些方法 清单文件加入权限  这里就可以实现功能了
                 //alipaysSdk   与fuqianla  JAr 的包

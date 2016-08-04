@@ -4,17 +4,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.ywq9682.eyepetizer.R;
-import com.example.ywq9682.eyepetizer.adapter.DiscoverAdapter;
 import com.example.ywq9682.eyepetizer.adapter.SelectionAdapter;
 import com.example.ywq9682.eyepetizer.base.BaseFragment;
 import com.example.ywq9682.eyepetizer.bean.AllBean;
-import com.example.ywq9682.eyepetizer.bean.DiscoverBean;
 import com.example.ywq9682.eyepetizer.bean.SelectionBean;
 import com.example.ywq9682.eyepetizer.bean.SelectionListBean;
 import com.google.gson.Gson;
@@ -131,12 +128,15 @@ public class SelectionFragment extends BaseFragment {
         });
     }
 
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         context.unregisterReceiver(itemPositionBroadcast);
         context.unregisterReceiver(refreshBroadcast);
     }
+
+
 
     class ItemPositionBroadcast extends BroadcastReceiver {
 
@@ -145,7 +145,8 @@ public class SelectionFragment extends BaseFragment {
             int position = intent.getIntExtra("itemPosition", 0);
             pullToRefreshListView.getRefreshableView().setSelection(position);
         }
-    }
+    } 
+
 
     class RefreshBroadcast extends BroadcastReceiver {
 

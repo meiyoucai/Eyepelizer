@@ -7,7 +7,7 @@ import android.os.Parcelable;
 public class SelectionListBean implements Parcelable {
     private String type, text, title, time, category, imageUrl, description, playUrl, blurredUrl, image;
     private int collectionCount, shareCount, replyCount, count, id;
-
+    private boolean isCheckBox = false;
     public SelectionListBean() {
     }
 
@@ -27,6 +27,7 @@ public class SelectionListBean implements Parcelable {
         this.replyCount = replyCount;
         this.count = count;
         this.id = id;
+
     }
 
     protected SelectionListBean(Parcel in) {
@@ -58,6 +59,14 @@ public class SelectionListBean implements Parcelable {
             return new SelectionListBean[size];
         }
     };
+
+    public boolean isCheckBox() {
+        return isCheckBox;
+    }
+
+    public void setCheckBox(boolean checkBox) {
+        isCheckBox = checkBox;
+    }
 
     public String getType() {
         return type;
