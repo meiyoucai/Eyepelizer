@@ -18,8 +18,8 @@ import java.util.List;
  * Created by dllo on 16/7/18.
  */
 public class DiscoverAdapter extends BaseAdapter {
-    private DiscoverBean discoverBean;
-    private List<DiscoverBean.ItemListBean> list;
+    private DiscoverBean mDiscoverBean;
+    private List<DiscoverBean.ItemListBean> mList;
     private Context context;
     private ClickPicture clickPicture;
 
@@ -33,23 +33,23 @@ public class DiscoverAdapter extends BaseAdapter {
     }
 
     public void setDiscoverBean(DiscoverBean discoverBean) {
-        this.discoverBean = discoverBean;
-        list = discoverBean.getItemList();
-        list.remove(0);
-        list.remove(0);
-        list.remove(0);
-        list.remove(0);
+        this.mDiscoverBean = discoverBean;
+        mList = discoverBean.getItemList();
+        mList.remove(0);
+        mList.remove(0);
+        mList.remove(0);
+        mList.remove(0);
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return list.size();
+        return mList.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return list.get(i);
+        return mList.get(i);
     }
 
     @Override
@@ -74,8 +74,8 @@ public class DiscoverAdapter extends BaseAdapter {
             }
         });
 
-        viewHolder.textView.setText(list.get(i).getData().getTitle());
-        Glide.with(context).load(list.get(i).getData().getImage()).into(viewHolder.imageView);
+        viewHolder.textView.setText(mList.get(i).getData().getTitle());
+        Glide.with(context).load(mList.get(i).getData().getImage()).into(viewHolder.imageView);
 
 
         return view;
