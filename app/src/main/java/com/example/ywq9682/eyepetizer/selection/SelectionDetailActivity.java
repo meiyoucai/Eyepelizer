@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -29,6 +30,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by dllo on 16/7/21.
@@ -48,6 +50,7 @@ public class SelectionDetailActivity extends BaseActivity implements ViewPager.O
     private int mCurrentPostion;
     private int position;
     private CheckBox checkBox;
+    private List<Boolean> booleanList;
 
     @Override
     public int setLayout() {
@@ -78,7 +81,6 @@ public class SelectionDetailActivity extends BaseActivity implements ViewPager.O
         selectionCache = (LinearLayout) findViewById(R.id.selection_cache);
         selectionDetail = (RelativeLayout) findViewById(R.id.selection_detail);
         selectionDetailLauncher = (LinearLayout) findViewById(R.id.selection_detail_lanucher);
-
         checkBox = (CheckBox) findViewById(R.id.check_selection);
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,14 +94,14 @@ public class SelectionDetailActivity extends BaseActivity implements ViewPager.O
                     collectBean.setCategoryTv(selectionListBean.get(position).getCategory());
                     collectBean.setImageView(selectionListBean.get(position).getImageUrl());
 
-//                    SingleLiteOrm.getSingleLiteOrm().insertSingle(collectBean);
+                    SingleLiteOrm.getSingleLiteOrm().insertSingle(collectBean);
 
 
                 } else {
 
                     Toast.makeText(SelectionDetailActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
 
-                   SingleLiteOrm.getSingleLiteOrm().delectSingleCondition(CollectBean.class, "titleTv", selectionListBean.get(position).getTitle());
+                    SingleLiteOrm.getSingleLiteOrm().delectSingleCondition(CollectBean.class, "titleTv", selectionListBean.get(position).getTitle());
 
 
                 }
@@ -121,6 +123,11 @@ public class SelectionDetailActivity extends BaseActivity implements ViewPager.O
         selectionDetailViewAdapter = new SelectionDetailViewAdapter(this);
         //获取传递的数据
         selectionListBean = getIntent().getParcelableArrayListExtra("selectionListBean");
+        booleanList = new ArrayList<>();
+        for (SelectionListBean listBean : selectionListBean) {
+            booleanList.add(false);
+        }
+
         selectionDetailViewAdapter.setSelectionListBean(selectionListBean);
         viewPager.setAdapter(selectionDetailViewAdapter);
         viewPager.setCurrentItem(position);
@@ -166,22 +173,23 @@ public class SelectionDetailActivity extends BaseActivity implements ViewPager.O
         selectionShareCountTv.setText(String.valueOf(selectionListBean.get(position).getShareCount()));
         selectionReplyCountTv.setText(String.valueOf(selectionListBean.get(position).getReplyCount()));
         selectionTextHeader.setText(selectionListBean.get(position).getText());
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/lobster.ttf");
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Lobster.ttf");
         selectionTextHeader.setTypeface(typeface);
         selectionTitle.startAnimation();
         selectionDescription.startAnimation();
-
         AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);
         alphaAnimation.setDuration(2000);
         selectionPlay.startAnimation(alphaAnimation);
         selectionBlurredIv.startAnimation(alphaAnimation);
-
-
+        checkBox.setChecked(false);
+        Log.d("SelectionDetailActivity", "false");
         for (CollectBean collectBean : SingleLiteOrm.getSingleLiteOrm().quaryAllSingle(CollectBean.class)) {
-            if (collectBean.getTitleTv().equals(selectionListBean.get(position).getTitle()))
+            if (collectBean.getTitleTv().equals(selectionListBean.get(position).getTitle())) {
                 checkBox.setChecked(true);
+                Log.d("SelectionDetailActivity", "true");
+            } else {
+            }
         }
-
     }
 
     @Override

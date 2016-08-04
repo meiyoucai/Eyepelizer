@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.ywq9682.eyepetizer.R;
@@ -74,7 +73,7 @@ public class DiscoverFragment extends BaseFragment {
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(context, GridviewActivity.class);
-                Toast.makeText(context, "discoverBean.getItemList().get(position + 4).getData().getId():" + discoverBean.getItemList().get(position + 4).getData().getId(), Toast.LENGTH_SHORT).show();
+                // Toast.makeText(context, "discoverBean.getItemList().get(position + 4).getData().getId():" + discoverBean.getItemList().get(position + 4).getData().getId(), Toast.LENGTH_SHORT).show();
                 intent.putExtra("gridviewId", discoverBean.getItemList().get(position + 4).getData().getId());
                 context.startActivity(intent);
             }
@@ -116,16 +115,16 @@ public class DiscoverFragment extends BaseFragment {
 
                 int pos = position - 1;
 
-                if (discoverBean.getItemList().get(0).getData().getItemList().get(pos).getData().getActionUrl().equals("eyepetizer://webview/?title=%E9%82%A3%E4%BA%9B%E5%9C%A8%E7%BB%BC%E8%89%BA%E4%B8%AD%E8%B6%85%E7%BA%A7%E6%8B%BC%E7%9A%84%E9%A2%86%E5%AF%BC%E4%BA%BA&url=http%3A%2F%2Fwww.wandoujia.com%2Feyepetizer%2Fcollection.html%3Fname%3Dpresident%26shareable%3Dtrue")) {
+                if (discoverBean.getItemList().get(0).getData().getItemList().get(pos).getData().getActionUrl().equals("eyepetizer://webview/?title=%E5%8E%9F%E6%9D%A5%E4%BD%A0%E4%B9%9F%E6%98%AF%E4%B8%80%E5%8F%AA%E7%8C%AB%E5%A5%B4&url=http%3A%2F%2Fwww.wandoujia.com%2Feyepetizer%2Farticle.html%3Fnid%3D935%26shareable%3Dtrue")) {
                     Intent intent = new Intent(context, BannerWeb.class);
                     // intent.putExtra("actionUrl",discoverBean.getItemList().get(0).getData().getItemList().get(pos).getData().getActionUrl().substring(149,247));
                     context.startActivity(intent);
+
                 } else if (discoverBean.getItemList().get(0).getData().getItemList().get(pos).getData().getActionUrl().equals("eyepetizer://recommend/")) {
 
                     Intent intent1 = new Intent(context, BannerSearchActivity.class);
                     context.startActivity(intent1);
-                }
-                else if(discoverBean.getItemList().get(0).getData().getItemList().get(pos).getData().getActionUrl().equals("eyepetizer://webview/?title=%E5%85%B3%E4%BA%8E%E5%A4%8F%E5%A4%A9%E7%9A%84%E6%89%80%E6%9C%89%E9%81%90%E6%83%B3&url=http%3A%2F%2Fwww.wandoujia.com%2Feyepetizer%2Fcollection.html%3Fname%3Dsummer%26shareable%3Dtrue")){
+                } else if (discoverBean.getItemList().get(0).getData().getItemList().get(pos).getData().getActionUrl().equals("eyepetizer://webview/?title=%E5%85%B3%E4%BA%8E%E5%A4%8F%E5%A4%A9%E7%9A%84%E6%89%80%E6%9C%89%E9%81%90%E6%83%B3&url=http%3A%2F%2Fwww.wandoujia.com%2Feyepetizer%2Fcollection.html%3Fname%3Dsummer%26shareable%3Dtrue")) {
 
                     Intent intent2 = new Intent(context, DeckViewSampleActivity.class);
                     context.startActivity(intent2);
