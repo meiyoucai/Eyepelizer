@@ -198,7 +198,7 @@ public class SelectionAdapter extends BaseAdapter {
             case TYPE_HEADER:
                 headerViewHolder.headerText.setText(selectionListBean.get(position).getText());
 
-                Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/Lobster.ttf");
+                Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/lobster.ttf");
                headerViewHolder.headerText.setTypeface(typeface);
 
                 break;

@@ -173,7 +173,7 @@ public class SelectionDetailActivity extends BaseActivity implements ViewPager.O
         selectionShareCountTv.setText(String.valueOf(selectionListBean.get(position).getShareCount()));
         selectionReplyCountTv.setText(String.valueOf(selectionListBean.get(position).getReplyCount()));
         selectionTextHeader.setText(selectionListBean.get(position).getText());
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Lobster.ttf");
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/lobster.ttf");
         selectionTextHeader.setTypeface(typeface);
         selectionTitle.startAnimation();
         selectionDescription.startAnimation();

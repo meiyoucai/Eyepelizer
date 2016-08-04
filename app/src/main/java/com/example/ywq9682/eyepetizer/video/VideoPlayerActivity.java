@@ -77,16 +77,16 @@ public class VideoPlayerActivity extends BaseActivity implements Brightness, Vie
         urlS = intent.getStringExtra("urlS");
         title = intent.getStringExtra("title");
         path = intent.getStringExtra("path");
-//        if (path != null) {
+        if (path != null) {
             mSuperVideoPlayer.loadLocalVideo(path);
-//        } else {
+        } else {
             Log.d("ssd", urlF + " ");
             Log.d("ssd", urlS + " ");
             Log.d("ssd", title + " ");
 //        mSuperVideoPlayer.loadLocalVideo(Environment.getExternalStorageDirectory()
 //                + File.separator + "kaiyan/video/" + "当建筑空间可以繁衍生长.mp4");
-//            playerVideo();
-//        }
+            playerVideo();
+        }
     }
 
 

@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.ywq9682.eyepetizer.R;
 import com.example.ywq9682.eyepetizer.base.BaseFragment;
+import com.example.ywq9682.eyepetizer.video.VideoPlayerActivity;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -57,8 +58,8 @@ public class TimeFragment extends BaseFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(context, Videoview.class);
-                intent.putExtra("videoview", vrBean.getItemList().get(i).getData().getPlayUrl());
+                Intent intent = new Intent(context, VideoPlayerActivity.class);
+                intent.putExtra("urlS", vrBean.getItemList().get(i).getData().getPlayUrl());
                 Log.d("TimeFragment", vrBean.getItemList().get(i).getData().getPlayUrl());
                 context.startActivity(intent);
 
