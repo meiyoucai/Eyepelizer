@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 /**
  * Created by dllo on 16/7/19.
+ * lkl
  */
 public class SelectionAdapter extends BaseAdapter {
     private SelectionBean selectionBean;

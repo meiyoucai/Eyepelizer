@@ -60,17 +60,13 @@ public class TimeFragment extends BaseFragment {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
                 Intent intent = new Intent(context, DetialNextActivity.class);
                 intent.putExtra("ok", datas.getItemList().get(i).getData().getId());
                // Log.d("TimeFragment", "datas.getItemList().get(i).getData().getId():" + datas.getItemList().get(i).getData().getId());
                 context.startActivity(intent);
             }
         });
-
-
         View  view1= LayoutInflater.from(context).inflate(R.layout.listview_footview,null);
-
         TextView endTv= (TextView) view1.findViewById(R.id.end_listview);
         Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/lobster.ttf");
         endTv.setTypeface(typeface);
@@ -78,5 +74,6 @@ public class TimeFragment extends BaseFragment {
     }
     @Override
     protected void initData() {
+
     }
 }
