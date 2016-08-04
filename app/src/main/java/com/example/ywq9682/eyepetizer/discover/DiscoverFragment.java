@@ -14,6 +14,7 @@ import com.example.ywq9682.eyepetizer.bean.AllBean;
 import com.example.ywq9682.eyepetizer.bean.DiscoverBean;
 import com.example.ywq9682.eyepetizer.discover.banner.BannerSearchActivity;
 import com.example.ywq9682.eyepetizer.discover.banner.BannerWeb;
+import com.example.ywq9682.eyepetizer.discover.banner.DeckViewSampleActivity;
 import com.example.ywq9682.eyepetizer.discover.gridview.GridviewActivity;
 import com.example.ywq9682.eyepetizer.discover.top.TopActivity;
 import com.example.ywq9682.eyepetizer.discover.topic.TopicActivity;
@@ -123,6 +124,12 @@ public class DiscoverFragment extends BaseFragment {
 
                     Intent intent1 = new Intent(context, BannerSearchActivity.class);
                     context.startActivity(intent1);
+                }
+                else if(discoverBean.getItemList().get(0).getData().getItemList().get(pos).getData().getActionUrl().equals("eyepetizer://webview/?title=%E5%85%B3%E4%BA%8E%E5%A4%8F%E5%A4%A9%E7%9A%84%E6%89%80%E6%9C%89%E9%81%90%E6%83%B3&url=http%3A%2F%2Fwww.wandoujia.com%2Feyepetizer%2Fcollection.html%3Fname%3Dsummer%26shareable%3Dtrue")){
+
+                    Intent intent2 = new Intent(context, DeckViewSampleActivity.class);
+                    context.startActivity(intent2);
+
                 }
             }
         });

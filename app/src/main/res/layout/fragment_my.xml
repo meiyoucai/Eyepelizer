@@ -24,10 +24,10 @@
         <ImageView
             android:id="@+id/map"
             android:layout_width="wrap_content"
-            android:src="@mipmap/abc_ic_ab_back_holo_light"
-            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_height="wrap_content" />
+            android:layout_margin="10dp"
+            android:src="@mipmap/abc_ic_ab_back_holo_light" />
 
 
     </RelativeLayout>
@@ -45,20 +45,47 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginTop="50dp"
-        android:visibility="gone"
         android:src="@mipmap/me_avatar_boy"
-         />
+        android:visibility="gone" />
 
-    <EditText
+    <TextView
         android:id="@+id/herad_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-
         android:layout_centerHorizontal="true"
         android:layout_marginTop="140dp"
         android:background="@null"
-        android:hint="qzuser" />
+        android:text="名字" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_marginTop="140dp"
+        android:id="@+id/fragment_relayopt"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content">
+
+        <EditText
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+
+            android:background="@null"
+            android:hint="名字" />
+
+        <ImageView
+            android:id="@+id/herad_name_editext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+
+            android:layout_toRightOf="@id/herad_name_editext"
+            android:src="@mipmap/abc_ic_ab_back_holo_light" />
+
+
+    </RelativeLayout>
+
 
     <LinearLayout
         android:id="@+id/my_message_and_search"
@@ -81,9 +108,9 @@
                 android:src="@mipmap/ic_action_compact_favourite_normal" />
 
             <TextView
+                android:id="@+id/my_collect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/my_collect"
                 android:text="我的收藏" />
         </LinearLayout>
 
@@ -136,21 +163,22 @@
         android:textSize="20sp" />
 
     <TextView
+        android:id="@+id/return_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/my_pay"
         android:layout_marginTop="50dp"
         android:gravity="center"
-        android:id="@+id/return_login"
         android:text="退出登录"
         android:textSize="20sp" />
+
     <TextView
+        android:id="@+id/buqiyan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="不起眼"
-        android:id="@+id/buqiyan"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+        android:text="不起眼" />
 
 
 </RelativeLayout>

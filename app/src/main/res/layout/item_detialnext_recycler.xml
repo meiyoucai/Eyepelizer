@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-
+android:id="@+id/detialnext_lin"
     android:orientation="vertical">
 
 
@@ -10,22 +10,20 @@
         android:id="@+id/detialnext_recycler_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher"
-        android:layout_margin="10dp"/>
+
+        android:layout_margin="10dp" />
 
     <TextView
         android:id="@+id/detialnext_recycler_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="marquee"
-        android:maxLines="1"
-        android:text="asdsa" />
+        android:maxLines="1" />
 
     <TextView
         android:id="@+id/detialnext_recycler_time"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="asd" />
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>

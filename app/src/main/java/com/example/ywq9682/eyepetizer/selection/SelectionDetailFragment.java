@@ -78,7 +78,6 @@ public class SelectionDetailFragment extends BaseFragment implements View.OnTouc
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (checkBox.isChecked()) {
                     Toast.makeText(context, "已收藏", Toast.LENGTH_SHORT).show();
                     CollectBean collectBean = new CollectBean();
@@ -88,8 +87,6 @@ public class SelectionDetailFragment extends BaseFragment implements View.OnTouc
                     collectBean.setImageView(selectionListBean.get(position).getImageUrl());
                     Log.d("SelectionDetailFragment", "collectBean:" + collectBean);
                     SingleLiteOrm.getSingleLiteOrm().insertSingle(collectBean);
-
-
                 } else {
 
                     Toast.makeText(context, "取消收藏", Toast.LENGTH_SHORT).show();
@@ -98,10 +95,7 @@ public class SelectionDetailFragment extends BaseFragment implements View.OnTouc
 //                                    where("titleTv" + " = ?", new String[]{selectionListBean.get(position).getTitle()}));
                     SingleLiteOrm.getSingleLiteOrm().delectSingleCondition(CollectBean.class, "titleTv", selectionListBean.get(position).getTitle());
 
-
                 }
-
-
             }
         });
 
@@ -154,15 +148,12 @@ public class SelectionDetailFragment extends BaseFragment implements View.OnTouc
         selectionCollectionCountTv.setText(String.valueOf(selectionListBean.get(position).getCollectionCount()));
         selectionShareCountTv.setText(String.valueOf(selectionListBean.get(position).getShareCount()));
         selectionReplyCountTv.setText(String.valueOf(selectionListBean.get(position).getReplyCount()));
-
-
         selectionTitle.startAnimation();
         selectionDescription.startAnimation();
         AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);
         alphaAnimation.setDuration(2000);
         selectionPlay.startAnimation(alphaAnimation);
         selectionBlurredIv.startAnimation(alphaAnimation);
-
         for (CollectBean collectBean : SingleLiteOrm.getSingleLiteOrm().quaryAllSingle(CollectBean.class)) {
             if (collectBean.getTitleTv().equals(selectionListBean.get(position).getTitle()))
                 checkBox.setChecked(true);
